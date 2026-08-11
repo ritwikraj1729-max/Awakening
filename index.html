@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
     <style>
+        /* ... (all the original CSS, unchanged) ... */
         :root {
             --bg: #0b0b10;
             --bg2: #14141c;
@@ -1250,6 +1251,8 @@
                     <div class="setting-row"><div class="si"><div class="sn">🎨 Accent Color</div><div class="sd">Pick your accent</div></div><div class="color-dots" id="accentDots"></div></div>
                     <div class="setting-row"><div class="si"><div class="sn">📤 Export Data</div><div class="sd">Download JSON</div></div><button class="btn btn-sm" id="exportBtn">Export</button></div>
                     <div class="setting-row"><div class="si"><div class="sn">📥 Import Data</div><div class="sd">Restore from file</div></div><button class="btn btn-sm" id="importBtn">Import</button><input type="file" id="importFile" accept=".json" style="display:none;" /></div>
+                    <!-- NEW: Import from JSON text -->
+                    <div class="setting-row"><div class="si"><div class="sn">📝 Import JSON Text</div><div class="sd">Paste JSON data</div></div><button class="btn btn-sm" id="importTextBtn">Import Text</button></div>
                     <div class="setting-row"><div class="si"><div class="sn" style="color:var(--red);">🗑️ Reset Data</div><div class="sd" style="color:var(--red);">Cannot be undone</div></div><button class="btn btn-sm btn-danger" id="resetBtn">Reset</button></div>
                 </div>
             </section>
@@ -1267,6 +1270,20 @@
         <form id="chapterForm" autocomplete="off"><div class="input-group mb-10"><label>Chapter Name</label><input type="text" id="chName" placeholder="e.g. Algebra" required /></div><div class="modal-actions"><button type="button" class="btn" data-close="chapterModal">Cancel</button><button type="submit" class="btn btn-accent" id="chSubmitBtn">Create</button></div></form></div></div>
     <div class="modal-overlay" id="roadmapModal"><div class="modal"><div class="modal-hdr"><h2>🛤️ Edit Roadmap</h2><button class="modal-close" data-close="roadmapModal">✕</button></div>
         <div id="roadmapEditor"><div id="roadmapSteps"></div><div class="flex-row mt-10"><input type="text" id="newStepInput" placeholder="Add step…" style="flex:1;padding:8px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn btn-accent btn-sm" id="addStepBtn">Add</button></div><div class="modal-actions"><button type="button" class="btn" data-close="roadmapModal">Cancel</button><button class="btn btn-accent" id="saveRoadmapBtn">Save</button></div></div></div></div>
+    <!-- NEW: Import JSON Text Modal -->
+    <div class="modal-overlay" id="textImportModal">
+        <div class="modal">
+            <div class="modal-hdr"><h2>Import JSON Text</h2><button class="modal-close" data-close="textImportModal">✕</button></div>
+            <div class="input-group mb-10">
+                <label>Paste your JSON backup here:</label>
+                <textarea id="jsonTextInput" rows="10" style="resize:vertical; width:100%; font-family: monospace; font-size:0.8rem;"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn" data-close="textImportModal">Cancel</button>
+                <button class="btn btn-accent" id="importTextSubmit">Import</button>
+            </div>
+        </div>
+    </div>
     <canvas id="confettiCanvas"></canvas>
 
     <script>
@@ -1996,6 +2013,31 @@
                             'Invalid file.'); } catch (e) { alert('Error: ' + e.message); } };
                 reader.readAsText(f);
                 this.value = ''; });
+
+            // ── NEW: Import JSON Text ──
+            $('#importTextBtn').addEventListener('click', () => $('#textImportModal').classList.add('open'));
+            $('#importTextSubmit').addEventListener('click', () => {
+                const raw = $('#jsonTextInput').value.trim();
+                if (!raw) return toast('⚠️', 'Empty', 'Please paste JSON data.');
+                try {
+                    const imp = JSON.parse(raw);
+                    if (imp.subjects && imp.settings) {
+                        data = imp;
+                        save();
+                        viewingChapterId = null;
+                        refresh();
+                        navigate('home');
+                        $('#textImportModal').classList.remove('open');
+                        $('#jsonTextInput').value = '';
+                        toast('📥', 'Imported', 'Data restored from text.');
+                    } else {
+                        alert('Invalid data structure. JSON must contain "subjects" and "settings" keys.');
+                    }
+                } catch (e) {
+                    alert('Invalid JSON: ' + e.message);
+                }
+            });
+
             $('#resetBtn').addEventListener('click', () => {
                 if (confirm('⚠️ Reset ALL data?') && confirm('Are you sure?')) { data = defaultData();
                     save();
@@ -2020,7 +2062,6 @@
             }
             init();
         })();
-        
     </script>
 </body>
 </html>
