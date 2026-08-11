@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
     <style>
-        /* ... (all the original CSS, unchanged) ... */
         :root {
             --bg: #0b0b10;
             --bg2: #14141c;
@@ -38,6 +37,7 @@
             --node-size: 72px;
             --connector-height: 55px;
             --connector-angle: 22deg;
+            --connector-width: 200px;
         }
         .light {
             --bg: #f2f2f7;
@@ -430,42 +430,18 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-12 {
-            margin-top: 12px;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mb-6 {
-            margin-bottom: 6px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
-        .mb-12 {
-            margin-bottom: 12px;
-        }
-        .mb-14 {
-            margin-bottom: 14px;
-        }
-        .mb-16 {
-            margin-bottom: 16px;
-        }
-        .mb-20 {
-            margin-bottom: 20px;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .text-muted {
-            color: var(--text3);
-        }
-        .text-secondary {
-            color: var(--text2);
-        }
+        .mt-8 { margin-top: 8px; }
+        .mt-12 { margin-top: 12px; }
+        .mt-16 { margin-top: 16px; }
+        .mb-6 { margin-bottom: 6px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-12 { margin-bottom: 12px; }
+        .mb-14 { margin-bottom: 14px; }
+        .mb-16 { margin-bottom: 16px; }
+        .mb-20 { margin-bottom: 20px; }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text3); }
+        .text-secondary { color: var(--text2); }
         .progress-bar {
             width: 100%;
             height: 5px;
@@ -528,22 +504,12 @@
             transform: translateY(-3px);
             box-shadow: var(--shadow);
         }
-        .subject-card .s-emoji {
-            font-size: 1.8rem;
-        }
-        .subject-card .s-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .subject-card .s-meta {
-            font-size: 0.75rem;
-            color: var(--text2);
-        }
+        .subject-card .s-emoji { font-size: 1.8rem; }
+        .subject-card .s-name { font-weight: 600; font-size: 0.95rem; }
+        .subject-card .s-meta { font-size: 0.75rem; color: var(--text2); }
         .subject-card .s-color-bar {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             border-radius: var(--radius) var(--radius) 0 0;
         }
@@ -555,18 +521,9 @@
             font-weight: 600;
             letter-spacing: 0.2px;
         }
-        .badge-done {
-            background: rgba(45, 212, 160, 0.18);
-            color: var(--green);
-        }
-        .badge-active {
-            background: rgba(108, 92, 231, 0.18);
-            color: var(--accent);
-        }
-        .badge-locked {
-            background: var(--surface2);
-            color: var(--text3);
-        }
+        .badge-done { background: rgba(45,212,160,0.18); color: var(--green); }
+        .badge-active { background: rgba(108,92,231,0.18); color: var(--accent); }
+        .badge-locked { background: var(--surface2); color: var(--text3); }
 
         /* ── DUOLINGO UNIT PATH (CHAPTERS) ── */
         .unit-path {
@@ -583,9 +540,7 @@
             border-radius: 2px;
             transition: background 0.5s;
         }
-        .unit-path .unit-connector.done {
-            background: var(--green);
-        }
+        .unit-path .unit-connector.done { background: var(--green); }
         .unit-node-wrap {
             display: flex;
             align-items: center;
@@ -617,72 +572,42 @@
             gap: 8px;
             margin-bottom: 6px;
         }
-        .unit-card .uc-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-        .unit-card .uc-meta {
-            font-size: 0.75rem;
-            color: var(--text2);
-            margin-bottom: 8px;
-        }
-        .unit-card .uc-progress {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .unit-card .uc-progress .progress-bar {
-            flex: 1;
-            height: 6px;
-        }
-        .unit-card .uc-progress span {
-            font-size: 0.7rem;
-            color: var(--text3);
-            flex-shrink: 0;
-        }
+        .unit-card .uc-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+        .unit-card .uc-meta { font-size: 0.75rem; color: var(--text2); margin-bottom: 8px; }
+        .unit-card .uc-progress { display: flex; align-items: center; gap: 8px; }
+        .unit-card .uc-progress .progress-bar { flex: 1; height: 6px; }
+        .unit-card .uc-progress span { font-size: 0.7rem; color: var(--text3); flex-shrink: 0; }
         .unit-card.done {
             border-color: var(--green);
-            background: rgba(45, 212, 160, 0.06);
+            background: rgba(45,212,160,0.06);
         }
         .unit-card.active {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 0 20px rgba(108,92,231,0.2);
             animation: cardGlow 2.5s ease-in-out infinite;
         }
         @keyframes cardGlow {
-            0%,
-            100% {
-                box-shadow: 0 0 12px rgba(108, 92, 231, 0.15);
-            }
-            50% {
-                box-shadow: 0 0 28px rgba(108, 92, 231, 0.4);
-            }
+            0%,100% { box-shadow: 0 0 12px rgba(108,92,231,0.15); }
+            50% { box-shadow: 0 0 28px rgba(108,92,231,0.4); }
         }
         .unit-card .uc-dot {
             position: absolute;
-            left: -8px;
-            top: 50%;
+            left: -8px; top: 50%;
             transform: translateY(-50%);
-            width: 14px;
-            height: 14px;
+            width: 14px; height: 14px;
             border-radius: 50%;
             border: 3px solid var(--border);
             background: var(--bg);
             transition: all var(--transition);
             z-index: 2;
         }
-        .unit-card.done .uc-dot {
-            border-color: var(--green);
-            background: var(--green);
-        }
+        .unit-card.done .uc-dot { border-color: var(--green); background: var(--green); }
         .unit-card.active .uc-dot {
-            border-color: var(--accent);
-            background: var(--accent);
-            box-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+            border-color: var(--accent); background: var(--accent);
+            box-shadow: 0 0 10px rgba(108,92,231,0.5);
         }
 
-        /* ── WINDING LEVEL PATH (GAME MAP STYLE) ── */
+        /* ── WINDING LEVEL PATH (DESKTOP) ── */
         .winding-path {
             display: flex;
             flex-direction: column;
@@ -729,14 +654,14 @@
             border-color: var(--green);
             background: var(--green);
             color: #000;
-            box-shadow: 0 0 22px rgba(45, 212, 160, 0.35);
+            box-shadow: 0 0 22px rgba(45,212,160,0.35);
         }
         .winding-path .path-node.active .node-circle {
             border-color: var(--accent);
             background: var(--accent);
             color: #fff;
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+            box-shadow: 0 0 30px rgba(108,92,231,0.5);
             animation: pulseGlow 2s ease-in-out infinite;
         }
         .winding-path .path-node.locked .node-circle {
@@ -748,13 +673,8 @@
             cursor: not-allowed;
         }
         @keyframes pulseGlow {
-            0%,
-            100% {
-                box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 44px rgba(108, 92, 231, 0.7);
-            }
+            0%,100% { box-shadow: 0 0 20px rgba(108,92,231,0.3); }
+            50% { box-shadow: 0 0 44px rgba(108,92,231,0.7); }
         }
         .winding-path .node-label {
             font-size: 0.78rem;
@@ -765,18 +685,9 @@
             line-height: 1.2;
             transition: color var(--transition);
         }
-        .winding-path .path-node.done .node-label {
-            color: var(--text);
-        }
-        .winding-path .path-node.active .node-label {
-            color: var(--text);
-            font-weight: 700;
-        }
-        .winding-path .path-node.locked .node-label {
-            color: var(--text3);
-            opacity: 0.35;
-        }
-        /* toggle hover button */
+        .winding-path .path-node.done .node-label { color: var(--text); }
+        .winding-path .path-node.active .node-label { color: var(--text); font-weight: 700; }
+        .winding-path .path-node.locked .node-label { color: var(--text3); opacity: 0.35; }
         .winding-path .toggle-btn {
             position: absolute;
             top: -38px;
@@ -803,22 +714,13 @@
             pointer-events: auto;
             transform: translateX(-50%) translateY(0);
         }
-        .winding-path .path-node.active .toggle-btn {
-            background: var(--green);
-            color: #000;
-        }
-        .winding-path .path-node.done .toggle-btn {
-            background: var(--orange);
-            color: #000;
-        }
+        .winding-path .path-node.active .toggle-btn { background: var(--green); color: #000; }
+        .winding-path .path-node.done .toggle-btn { background: var(--orange); color: #000; }
         .winding-path .path-node.active .node-circle:hover,
-        .winding-path .path-node.done .node-circle:hover {
-            transform: scale(1.16);
-        }
-        /* connector */
+        .winding-path .path-node.done .node-circle:hover { transform: scale(1.16); }
         .winding-path .path-connector {
             height: var(--connector-height);
-            width: 200px;
+            width: var(--connector-width);
             position: relative;
             z-index: 1;
         }
@@ -843,44 +745,126 @@
         }
         .winding-path .path-connector.done::before {
             background: var(--green);
-            box-shadow: 0 0 8px rgba(45, 212, 160, 0.3);
+            box-shadow: 0 0 8px rgba(45,212,160,0.3);
         }
         .winding-path .path-connector.active-conn::before {
             background: var(--accent);
             animation: dashPulse 1.8s ease-in-out infinite;
         }
         @keyframes dashPulse {
-            0%,
-            100% {
-                opacity: 0.6;
-            }
-            50% {
-                opacity: 1;
-            }
+            0%,100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         .winding-path .path-node .check-icon {
             font-size: 1.6rem;
             animation: popIn 0.4s ease;
         }
         @keyframes popIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            60% {
-                transform: scale(1.4);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.4); }
+            100% { transform: scale(1); opacity: 1; }
         }
+
+        /* ── MOBILE STRAIGHT VERTICAL PATH ── */
+        .vertical-path {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            gap: 0;
+        }
+        .vertical-path .path-node-vert {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+        .vertical-path .node-circle-vert {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow2);
+        }
+        .vertical-path .path-node-vert.done .node-circle-vert {
+            border-color: var(--green);
+            background: var(--green);
+            color: #000;
+        }
+        .vertical-path .path-node-vert.active .node-circle-vert {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(108,92,231,0.4);
+        }
+        .vertical-path .path-node-vert.locked .node-circle-vert {
+            opacity: 0.35;
+            filter: grayscale(0.5);
+            cursor: not-allowed;
+        }
+        .vertical-path .node-label-vert {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text2);
+            text-align: center;
+            max-width: 100px;
+            line-height: 1.2;
+        }
+        .vertical-path .path-node-vert.done .node-label-vert { color: var(--text); }
+        .vertical-path .path-node-vert.active .node-label-vert { color: var(--text); font-weight: 600; }
+        .vertical-path .path-node-vert.locked .node-label-vert { color: var(--text3); opacity: 0.35; }
+        .vertical-connector {
+            width: 3px;
+            height: 16px;
+            background: var(--border);
+            border-radius: 1px;
+            transition: background 0.3s;
+        }
+        .vertical-connector.done { background: var(--green); }
+        .vertical-connector.active { background: var(--accent); }
+        .vertical-path .toggle-btn-vert {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.22s ease;
+            white-space: nowrap;
+            z-index: 10;
+            font-family: var(--font);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+        }
+        .vertical-path .path-node-vert.active:hover .toggle-btn-vert,
+        .vertical-path .path-node-vert.done:hover .toggle-btn-vert {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+        .vertical-path .path-node-vert.active .toggle-btn-vert { background: var(--green); color: #000; }
+        .vertical-path .path-node-vert.done .toggle-btn-vert { background: var(--orange); color: #000; }
 
         /* ── MODALS ── */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(0,0,0,0.55);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             z-index: 1000;
@@ -892,14 +876,7 @@
             display: flex;
             animation: fadeIn 0.25s ease;
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
         .modal {
             background: var(--bg2);
             border-radius: var(--radius);
@@ -913,14 +890,8 @@
             animation: slideUp 0.3s ease;
         }
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px) scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity:0; transform:translateY(24px) scale(0.97); }
+            to { opacity:1; transform:translateY(0) scale(1); }
         }
         .modal .modal-hdr {
             display: flex;
@@ -928,10 +899,7 @@
             justify-content: space-between;
             margin-bottom: 16px;
         }
-        .modal .modal-hdr h2 {
-            font-size: 1.15rem;
-            font-weight: 600;
-        }
+        .modal .modal-hdr h2 { font-size: 1.15rem; font-weight: 600; }
         .modal .modal-close {
             background: transparent;
             border: none;
@@ -943,40 +911,24 @@
             transition: all var(--transition);
             font-family: var(--font);
         }
-        .modal .modal-close:hover {
-            background: var(--surface);
-            color: var(--text);
-        }
-        .modal .modal-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 16px;
-            justify-content: flex-end;
-        }
-        .color-dots {
-            display: flex;
-            gap: 7px;
-            flex-wrap: wrap;
-        }
+        .modal .modal-close:hover { background: var(--surface); color: var(--text); }
+        .modal .modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+        .color-dots { display: flex; gap: 7px; flex-wrap: wrap; }
         .color-dots .dot {
-            width: 26px;
-            height: 26px;
+            width: 26px; height: 26px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid transparent;
             transition: all var(--transition);
         }
-        .color-dots .dot:hover {
-            transform: scale(1.12);
-        }
+        .color-dots .dot:hover { transform: scale(1.12); }
         .color-dots .dot.sel {
             border-color: #fff;
             box-shadow: 0 0 0 3px var(--bg);
         }
         .toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 20px; right: 20px;
             background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -990,18 +942,9 @@
             gap: 10px;
             align-items: flex-start;
         }
-        .toast .t-icon {
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-        .toast .t-body .t-title {
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-        .toast .t-body .t-msg {
-            font-size: 0.78rem;
-            color: var(--text2);
-        }
+        .toast .t-icon { font-size: 1.1rem; flex-shrink: 0; }
+        .toast .t-body .t-title { font-weight: 600; font-size: 0.85rem; }
+        .toast .t-body .t-msg { font-size: 0.78rem; color: var(--text2); }
         .panel-section {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -1023,9 +966,7 @@
             padding: 3px 0;
             font-size: 0.82rem;
         }
-        .panel-stat .pv {
-            font-weight: 600;
-        }
+        .panel-stat .pv { font-weight: 600; }
         .setting-row {
             display: flex;
             align-items: center;
@@ -1034,23 +975,12 @@
             border-bottom: 1px solid var(--border);
             gap: 12px;
         }
-        .setting-row:last-child {
-            border-bottom: none;
-        }
-        .setting-row .si {
-            flex: 1;
-        }
-        .setting-row .si .sn {
-            font-weight: 500;
-            font-size: 0.88rem;
-        }
-        .setting-row .si .sd {
-            font-size: 0.76rem;
-            color: var(--text2);
-        }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-row .si { flex: 1; }
+        .setting-row .si .sn { font-weight: 500; font-size: 0.88rem; }
+        .setting-row .si .sd { font-size: 0.76rem; color: var(--text2); }
         .toggle {
-            width: 40px;
-            height: 22px;
+            width: 40px; height: 22px;
             background: var(--surface2);
             border-radius: 11px;
             cursor: pointer;
@@ -1060,23 +990,15 @@
             flex-shrink: 0;
         }
         .toggle .knob {
-            width: 16px;
-            height: 16px;
+            width: 16px; height: 16px;
             background: var(--text3);
             border-radius: 50%;
             position: absolute;
-            top: 2px;
-            left: 2px;
+            top: 2px; left: 2px;
             transition: all var(--transition);
         }
-        .toggle.on {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-        .toggle.on .knob {
-            background: #fff;
-            left: 20px;
-        }
+        .toggle.on { background: var(--accent); border-color: var(--accent); }
+        .toggle.on .knob { background: #fff; left: 20px; }
         #confettiCanvas {
             position: fixed;
             inset: 0;
@@ -1099,109 +1021,38 @@
             font-size: 0.95rem;
         }
 
+        /* ── RESPONSIVE ── */
         @media (max-width: 1100px) {
-            .right-panel {
-                display: none;
-            }
-            .main-content {
-                max-width: 100%;
-                padding-right: 14px;
-            }
+            .right-panel { display: none; }
+            .main-content { max-width: 100%; padding-right: 14px; }
             :root {
                 --node-offset: 70px;
                 --node-size: 58px;
                 --connector-height: 40px;
                 --connector-angle: 18deg;
-            }
-            .winding-path .node-label {
-                font-size: 0.7rem;
-                max-width: 80px;
+                --connector-width: 160px;
             }
         }
         @media (max-width: 768px) {
             :root {
                 --sidebar-w: 52px;
                 --sidebar-collapsed: 52px;
-                --node-offset: 50px;
-                --node-size: 48px;
-                --connector-height: 30px;
-                --connector-angle: 14deg;
             }
-            .sidebar .logo span {
-                display: none;
-            }
-            .sidebar nav button .nav-label {
-                display: none;
-            }
-            .sidebar nav button {
-                justify-content: center;
-                padding: 10px;
-            }
-            .sidebar {
-                padding: 8px 4px;
-            }
-            .main-wrap {
-                margin-left: 52px;
-            }
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .subject-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            }
-            .page-header h1 {
-                font-size: 1.2rem;
-            }
-            .modal {
-                padding: 16px 14px;
-                width: 96%;
-                max-width: 96%;
-            }
-            .winding-path .node-circle {
-                border-width: 3px;
-            }
-            .winding-path .node-label {
-                font-size: 0.65rem;
-                max-width: 65px;
-            }
-            .winding-path .toggle-btn {
-                font-size: 0.68rem;
-                padding: 4px 10px;
-                top: -30px;
-            }
+            .sidebar .logo span { display: none; }
+            .sidebar nav button .nav-label { display: none; }
+            .sidebar nav button { justify-content: center; padding: 10px; }
+            .sidebar { padding: 8px 4px; }
+            .main-wrap { margin-left: 52px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .subject-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .page-header h1 { font-size: 1.2rem; }
+            .modal { padding: 16px 14px; width: 96%; max-width: 96%; }
+            .toast { left: 10px; right: 10px; bottom: 10px; max-width: none; }
         }
-        @media (max-width: 420px) {
-            :root {
-                --node-offset: 38px;
-                --node-size: 40px;
-                --connector-height: 22px;
-                --connector-angle: 10deg;
-            }
-            .subject-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .btn {
-                font-size: 0.75rem;
-                padding: 6px 10px;
-            }
-            .card {
-                padding: 10px 12px;
-            }
-            .toast {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                max-width: none;
-            }
-            .winding-path .node-circle {
-                border-width: 2px;
-                font-size: 0.7rem;
-            }
-            .winding-path .node-label {
-                font-size: 0.6rem;
-                max-width: 52px;
-            }
+        @media (max-width: 480px) {
+            .subject-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .btn { font-size: 0.75rem; padding: 6px 10px; }
+            .card { padding: 10px 12px; }
         }
     </style>
 </head>
@@ -1251,8 +1102,8 @@
                     <div class="setting-row"><div class="si"><div class="sn">🎨 Accent Color</div><div class="sd">Pick your accent</div></div><div class="color-dots" id="accentDots"></div></div>
                     <div class="setting-row"><div class="si"><div class="sn">📤 Export Data</div><div class="sd">Download JSON</div></div><button class="btn btn-sm" id="exportBtn">Export</button></div>
                     <div class="setting-row"><div class="si"><div class="sn">📥 Import Data</div><div class="sd">Restore from file</div></div><button class="btn btn-sm" id="importBtn">Import</button><input type="file" id="importFile" accept=".json" style="display:none;" /></div>
-                    <!-- NEW: Import from JSON text -->
                     <div class="setting-row"><div class="si"><div class="sn">📝 Import JSON Text</div><div class="sd">Paste JSON data</div></div><button class="btn btn-sm" id="importTextBtn">Import Text</button></div>
+                    <div class="setting-row"><div class="si"><div class="sn">📋 Export JSON Text</div><div class="sd">Copy backup to clipboard</div></div><button class="btn btn-sm" id="exportTextBtn">Copy Text</button></div>
                     <div class="setting-row"><div class="si"><div class="sn" style="color:var(--red);">🗑️ Reset Data</div><div class="sd" style="color:var(--red);">Cannot be undone</div></div><button class="btn btn-sm btn-danger" id="resetBtn">Reset</button></div>
                 </div>
             </section>
@@ -1270,18 +1121,11 @@
         <form id="chapterForm" autocomplete="off"><div class="input-group mb-10"><label>Chapter Name</label><input type="text" id="chName" placeholder="e.g. Algebra" required /></div><div class="modal-actions"><button type="button" class="btn" data-close="chapterModal">Cancel</button><button type="submit" class="btn btn-accent" id="chSubmitBtn">Create</button></div></form></div></div>
     <div class="modal-overlay" id="roadmapModal"><div class="modal"><div class="modal-hdr"><h2>🛤️ Edit Roadmap</h2><button class="modal-close" data-close="roadmapModal">✕</button></div>
         <div id="roadmapEditor"><div id="roadmapSteps"></div><div class="flex-row mt-10"><input type="text" id="newStepInput" placeholder="Add step…" style="flex:1;padding:8px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn btn-accent btn-sm" id="addStepBtn">Add</button></div><div class="modal-actions"><button type="button" class="btn" data-close="roadmapModal">Cancel</button><button class="btn btn-accent" id="saveRoadmapBtn">Save</button></div></div></div></div>
-    <!-- NEW: Import JSON Text Modal -->
     <div class="modal-overlay" id="textImportModal">
         <div class="modal">
             <div class="modal-hdr"><h2>Import JSON Text</h2><button class="modal-close" data-close="textImportModal">✕</button></div>
-            <div class="input-group mb-10">
-                <label>Paste your JSON backup here:</label>
-                <textarea id="jsonTextInput" rows="10" style="resize:vertical; width:100%; font-family: monospace; font-size:0.8rem;"></textarea>
-            </div>
-            <div class="modal-actions">
-                <button type="button" class="btn" data-close="textImportModal">Cancel</button>
-                <button class="btn btn-accent" id="importTextSubmit">Import</button>
-            </div>
+            <div class="input-group mb-10"><label>Paste your JSON backup here:</label><textarea id="jsonTextInput" rows="10" style="resize:vertical; width:100%; font-family: monospace; font-size:0.8rem;"></textarea></div>
+            <div class="modal-actions"><button type="button" class="btn" data-close="textImportModal">Cancel</button><button class="btn btn-accent" id="importTextSubmit">Import</button></div>
         </div>
     </div>
     <canvas id="confettiCanvas"></canvas>
@@ -1289,9 +1133,7 @@
     <script>
         (function() {
             const STORAGE_KEY = 'loopers_data_v5';
-            const COLORS = ['#6c5ce7', '#00b894', '#0984e3', '#fdcb6e', '#e17055', '#00cec9', '#fd79a8', '#a29bfe',
-                '#55efc4', '#ff7675'
-            ];
+            const COLORS = ['#6c5ce7', '#00b894', '#0984e3', '#fdcb6e', '#e17055', '#00cec9', '#fd79a8', '#a29bfe', '#55efc4', '#ff7675'];
             const DEFAULT_ROADMAP = ['Notes', 'Concepts', 'Examples', 'Practice', 'Revision', 'Quiz'];
 
             function defaultData() { return { subjects: [], settings: { theme: 'dark', accent: '#6c5ce7' } }; }
@@ -1300,766 +1142,365 @@
                 const now = Date.now();
                 return {
                     subjects: [{
-                        id: 's1',
-                        name: 'Mathematics',
-                        emoji: '📐',
-                        color: '#6c5ce7',
-                        roadmap: [...DEFAULT_ROADMAP],
+                        id: 's1', name: 'Mathematics', emoji: '📐', color: '#6c5ce7', roadmap: [...DEFAULT_ROADMAP],
                         chapters: [
-                            { id: 'c1a', name: 'Algebra', levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l1a' +
-                                        i, name: n, completed: i < 3 })), lastOpened: now - 8e5 },
-                            { id: 'c1b', name: 'Geometry',
-                                levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l1b' + i, name: n,
-                                    completed: i < 1 })), lastOpened: now - 3e5 },
-                            { id: 'c1c', name: 'Calculus', levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l1c' +
-                                        i, name: n, completed: false })), lastOpened: now - 1e5 }
-                        ],
-                        createdAt: now - 9e5
+                            { id: 'c1a', name: 'Algebra', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l1a'+i, name:n, completed:i<3 })), lastOpened: now-8e5 },
+                            { id: 'c1b', name: 'Geometry', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l1b'+i, name:n, completed:i<1 })), lastOpened: now-3e5 },
+                            { id: 'c1c', name: 'Calculus', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l1c'+i, name:n, completed:false })), lastOpened: now-1e5 }
+                        ], createdAt: now-9e5
                     }, {
-                        id: 's2',
-                        name: 'Physics',
-                        emoji: '⚛️',
-                        color: '#0984e3',
-                        roadmap: [...DEFAULT_ROADMAP],
+                        id: 's2', name: 'Physics', emoji: '⚛️', color: '#0984e3', roadmap: [...DEFAULT_ROADMAP],
                         chapters: [
-                            { id: 'c2a', name: 'Mechanics', levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l2a' +
-                                        i, name: n, completed: i < 2 })), lastOpened: now - 4e5 },
-                            { id: 'c2b', name: 'Thermodynamics',
-                                levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l2b' + i, name: n,
-                                    completed: false })), lastOpened: now - 6e4 }
-                        ],
-                        createdAt: now - 7e5
+                            { id: 'c2a', name: 'Mechanics', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l2a'+i, name:n, completed:i<2 })), lastOpened: now-4e5 },
+                            { id: 'c2b', name: 'Thermodynamics', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l2b'+i, name:n, completed:false })), lastOpened: now-6e4 }
+                        ], createdAt: now-7e5
                     }, {
-                        id: 's3',
-                        name: 'Computer Science',
-                        emoji: '💻',
-                        color: '#00b894',
-                        roadmap: [...DEFAULT_ROADMAP],
+                        id: 's3', name: 'Computer Science', emoji: '💻', color: '#00b894', roadmap: [...DEFAULT_ROADMAP],
                         chapters: [
-                            { id: 'c3a', name: 'Data Structures',
-                                levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l3a' + i, name: n,
-                                    completed: i < 4 })), lastOpened: now - 2e5 },
-                            { id: 'c3b', name: 'Algorithms', levels: DEFAULT_ROADMAP.map((n, i) => ({ id: 'l3b' +
-                                        i, name: n, completed: i < 1 })), lastOpened: now - 1e4 }
-                        ],
-                        createdAt: now - 5e5
+                            { id: 'c3a', name: 'Data Structures', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l3a'+i, name:n, completed:i<4 })), lastOpened: now-2e5 },
+                            { id: 'c3b', name: 'Algorithms', levels: DEFAULT_ROADMAP.map((n,i)=>({ id:'l3b'+i, name:n, completed:i<1 })), lastOpened: now-1e4 }
+                        ], createdAt: now-5e5
                     }],
                     settings: { theme: 'dark', accent: '#6c5ce7' }
                 };
             }
             let data = (() => {
-                try {
-                    const r = localStorage.getItem(STORAGE_KEY);
-                    if (r) { const p = JSON.parse(r); if (p.subjects && p.settings) return p; }
-                } catch (e) {}
-                const s = seedSampleData();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
-                return s;
+                try { const r = localStorage.getItem(STORAGE_KEY); if(r) { const p = JSON.parse(r); if(p.subjects && p.settings) return p; } } catch(e) {}
+                const s = seedSampleData(); localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); return s;
             })();
 
             function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-
-            function getSubj(id) { return data.subjects.find(s => s.id === id); }
-
-            function getCh(sid, cid) { const s = getSubj(sid); return s ? s.chapters.find(c => c.id === cid) : null; }
-
-            function getLvl(sid, cid, lid) { const c = getCh(sid, cid); return c ? c.levels.find(l => l.id === lid) :
-            null; }
-
+            function getSubj(id) { return data.subjects.find(s=>s.id===id); }
+            function getCh(sid,cid) { const s=getSubj(sid); return s?s.chapters.find(c=>c.id===cid):null; }
+            function getLvl(sid,cid,lid) { const c=getCh(sid,cid); return c?c.levels.find(l=>l.id===lid):null; }
             function subjCompletion(s) {
-                if (!s || !s.chapters.length) return 0;
-                let t = 0,
-                    d = 0;
-                s.chapters.forEach(c => { t += c.levels.length;
-                    c.levels.forEach(l => { if (l.completed) d++; }); });
-                return t ? Math.round((d / t) * 100) : 0;
+                if(!s||!s.chapters.length) return 0;
+                let t=0,d=0; s.chapters.forEach(c=>{ t+=c.levels.length; c.levels.forEach(l=>{ if(l.completed)d++; }); });
+                return t?Math.round((d/t)*100):0;
             }
-
             function chProgress(c) {
-                if (!c || !c.levels.length) return 0;
-                const d = c.levels.filter(l => l.completed).length;
-                return Math.round((d / c.levels.length) * 100);
+                if(!c||!c.levels.length) return 0;
+                const d=c.levels.filter(l=>l.completed).length;
+                return Math.round((d/c.levels.length)*100);
             }
-
             function overallStats() {
-                let sc = data.subjects.length,
-                    tc = 0,
-                    tl = 0,
-                    cl = 0;
-                data.subjects.forEach(s => { s.chapters.forEach(c => { tc++;
-                        tl += c.levels.length;
-                        c.levels.forEach(l => { if (l.completed) cl++; }); }); });
-                return { totalSubjects: sc, totalChapters: tc, totalLevels: tl, completedLevels: cl,
-                    remaining: tl - cl, completion: tl ? Math.round((cl / tl) * 100) : 0 };
+                let sc=data.subjects.length, tc=0, tl=0, cl=0;
+                data.subjects.forEach(s=>{ s.chapters.forEach(c=>{ tc++; tl+=c.levels.length; c.levels.forEach(l=>{ if(l.completed)cl++; }); }); });
+                return { totalSubjects:sc, totalChapters:tc, totalLevels:tl, completedLevels:cl, remaining:tl-cl, completion:tl?Math.round((cl/tl)*100):0 };
             }
-
             function lvlStatus(ch, lvl) {
-                const idx = ch.levels.findIndex(l => l.id === lvl.id);
-                if (idx < 0) return 'locked';
-                if (lvl.completed) return 'completed';
-                for (let i = 0; i < idx; i++) { if (!ch.levels[i].completed) return 'locked'; }
+                const idx=ch.levels.findIndex(l=>l.id===lvl.id);
+                if(idx<0) return 'locked';
+                if(lvl.completed) return 'completed';
+                for(let i=0;i<idx;i++) if(!ch.levels[i].completed) return 'locked';
                 return 'active';
             }
-
-            function nextLvl(ch) { return ch.levels.find(l => !l.completed) || null; }
-
-            function activeLvl(ch) { return nextLvl(ch) || (ch.levels.length ? ch.levels[ch.levels.length - 1] : null); }
-
-            function recentChapters(n = 5) {
-                const all = [];
-                data.subjects.forEach(s => s.chapters.forEach(c => all.push({ ...c, subjId: s.id, subjName: s.name,
-                    subjEmoji: s.emoji, subjColor: s.color })));
-                all.sort((a, b) => (b.lastOpened || 0) - (a.lastOpened || 0));
-                return all.slice(0, n);
+            function nextLvl(ch) { return ch.levels.find(l=>!l.completed)||null; }
+            function activeLvl(ch) { return nextLvl(ch)||(ch.levels.length?ch.levels[ch.levels.length-1]:null); }
+            function recentChapters(n=5) {
+                const all=[]; data.subjects.forEach(s=>s.chapters.forEach(c=>all.push({...c, subjId:s.id, subjName:s.name, subjEmoji:s.emoji, subjColor:s.color})));
+                all.sort((a,b)=>(b.lastOpened||0)-(a.lastOpened||0)); return all.slice(0,n);
             }
-
-            function genId() { return Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7); }
-
+            function genId() { return Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7); }
             function syncChaptersRoadmap(subj, newR) {
-                subj.chapters.forEach(ch => {
-                    const old = ch.levels || [];
-                    ch.levels = newR.map((step, i) => ({ id: (old[i] || {}).id || genId(), name: step,
-                        completed: (old[i] || {}).completed || false }));
+                subj.chapters.forEach(ch=>{
+                    const old=ch.levels||[]; ch.levels=newR.map((step,i)=>({ id:(old[i]||{}).id||genId(), name:step, completed:(old[i]||{}).completed||false }));
                 });
             }
-            const $ = (s) => document.querySelector(s);
-            const pages = { home: $('#page-home'), subjects: $('#page-subjects'), detail: $('#page-subject-detail'),
-                statistics: $('#page-statistics'), settings: $('#page-settings') };
+            const $ = (s)=>document.querySelector(s);
+            const pages = { home:$('#page-home'), subjects:$('#page-subjects'), detail:$('#page-subject-detail'), statistics:$('#page-statistics'), settings:$('#page-settings') };
             const navBtns = document.querySelectorAll('.sidebar nav button');
-            let currentPage = 'home',
-                currentSubjId = null,
-                viewingChapterId = null,
-                chartInstances = {};
+            let currentPage='home', currentSubjId=null, viewingChapterId=null, chartInstances={};
 
             function navigate(page, subjId) {
-                viewingChapterId = null;
-                if (page === 'detail' && subjId) { currentSubjId = subjId;
-                    currentPage = 'detail'; } else { currentSubjId = null;
-                    currentPage = page; }
-                Object.values(pages).forEach(p => p.classList.remove('active'));
-                const t = pages[page === 'detail' ? 'detail' : page];
-                if (t) t.classList.add('active');
-                navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === (page === 'detail' ? 'subjects' :
-                    page)));
+                viewingChapterId=null;
+                if(page==='detail'&&subjId) { currentSubjId=subjId; currentPage='detail'; } else { currentSubjId=null; currentPage=page; }
+                Object.values(pages).forEach(p=>p.classList.remove('active'));
+                const t=pages[page==='detail'?'detail':page]; if(t) t.classList.add('active');
+                navBtns.forEach(b=>b.classList.toggle('active', b.dataset.page===(page==='detail'?'subjects':page)));
                 refresh();
             }
-            navBtns.forEach(b => b.addEventListener('click', () => navigate(b.dataset.page)));
-            $('#backToSubjects').addEventListener('click', () => { viewingChapterId = null;
-                navigate('subjects'); });
-            $('#sidebarToggle').addEventListener('click', () => $('#sidebar').classList.toggle('collapsed'));
+            navBtns.forEach(b=>b.addEventListener('click', ()=>navigate(b.dataset.page)));
+            $('#backToSubjects').addEventListener('click', ()=>{ viewingChapterId=null; navigate('subjects'); });
+            $('#sidebarToggle').addEventListener('click', ()=>$('#sidebar').classList.toggle('collapsed'));
 
             function applySettings() {
-                const s = data.settings;
-                document.body.classList.toggle('light', s.theme === 'light');
+                const s=data.settings; document.body.classList.toggle('light', s.theme==='light');
                 document.documentElement.style.setProperty('--accent', s.accent);
-                document.documentElement.style.setProperty('--accent2', s.accent + 'cc');
-                $('#themeToggle').classList.toggle('on', s.theme === 'dark');
+                document.documentElement.style.setProperty('--accent2', s.accent+'cc');
+                $('#themeToggle').classList.toggle('on', s.theme==='dark');
             }
             $('#themeToggle').addEventListener('click', function() {
-                data.settings.theme = data.settings.theme === 'dark' ? 'light' : 'dark';
-                save();
-                applySettings();
-                refresh();
+                data.settings.theme = data.settings.theme==='dark'?'light':'dark'; save(); applySettings(); refresh();
             });
-
             function buildAccentDots() {
-                const c = $('#accentDots');
-                if (!c) return;
-                c.innerHTML = COLORS.map(cl =>
-                    `<div class="dot${cl===data.settings.accent?' sel':''}" data-color="${cl}" style="background:${cl};"></div>`
-                    ).join('');
-                c.querySelectorAll('.dot').forEach(d => d.addEventListener('click', function() {
-                    data.settings.accent = this.dataset.color;
-                    save();
-                    applySettings();
-                    refresh();
-                    c.querySelectorAll('.dot').forEach(dd => dd.classList.toggle('sel', dd.dataset
-                        .color === data.settings.accent));
+                const c=$('#accentDots'); if(!c) return;
+                c.innerHTML = COLORS.map(cl=>`<div class="dot${cl===data.settings.accent?' sel':''}" data-color="${cl}" style="background:${cl};"></div>`).join('');
+                c.querySelectorAll('.dot').forEach(d=>d.addEventListener('click', function() {
+                    data.settings.accent=this.dataset.color; save(); applySettings(); refresh();
+                    c.querySelectorAll('.dot').forEach(dd=>dd.classList.toggle('sel', dd.dataset.color===data.settings.accent));
                 }));
             }
-
             function toast(icon, title, msg) {
-                const old = document.querySelector('.toast');
-                if (old) old.remove();
-                const t = document.createElement('div');
-                t.className = 'toast';
-                t.innerHTML =
-                    `<span class="t-icon">${icon}</span><div class="t-body"><div class="t-title">${title}</div><div class="t-msg">${msg}</div></div>`;
+                const old=document.querySelector('.toast'); if(old) old.remove();
+                const t=document.createElement('div'); t.className='toast';
+                t.innerHTML=`<span class="t-icon">${icon}</span><div class="t-body"><div class="t-title">${title}</div><div class="t-msg">${msg}</div></div>`;
                 document.body.appendChild(t);
-                setTimeout(() => { t.style.opacity = '0';
-                    t.style.transform = 'translateY(14px)';
-                    t.style.transition = 'all 0.3s ease';
-                    setTimeout(() => t.remove(), 300); }, 2600);
+                setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(14px)'; t.style.transition='all 0.3s ease'; setTimeout(()=>t.remove(),300); },2600);
             }
-
             function confetti() {
-                const canvas = $('#confettiCanvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                const particles = [];
-                const colors = ['#6c5ce7', '#00b894', '#fdcb6e', '#fd79a8', '#55efc4', '#ff7675', '#74b9ff', '#fff'];
-                for (let i = 0; i < 70; i++) {
-                    particles.push({
-                        x: canvas.width / 2,
-                        y: canvas.height / 2 - 50,
-                        vx: (Math.random() - 0.5) * 12,
-                        vy: (Math.random() - 0.5) * 12 - 3,
-                        size: Math.random() * 5 + 3,
-                        color: colors[Math.floor(Math.random() * colors.length)],
-                        life: 1,
-                        decay: Math.random() * 0.014 + 0.007,
-                        rot: Math.random() * 360,
-                        rotSpd: (Math.random() - 0.5) * 10
-                    });
-                }
-                let frame = 0;
-
+                const canvas=$('#confettiCanvas'); const ctx=canvas.getContext('2d'); canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+                const particles=[], colors=['#6c5ce7','#00b894','#fdcb6e','#fd79a8','#55efc4','#ff7675','#74b9ff','#fff'];
+                for(let i=0;i<70;i++) particles.push({ x:canvas.width/2, y:canvas.height/2-50, vx:(Math.random()-0.5)*12, vy:(Math.random()-0.5)*12-3, size:Math.random()*5+3, color:colors[Math.floor(Math.random()*colors.length)], life:1, decay:Math.random()*0.014+0.007, rot:Math.random()*360, rotSpd:(Math.random()-0.5)*10 });
+                let frame=0;
                 function draw() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    let alive = false;
-                    particles.forEach(p => {
-                        if (p.life <= 0) return;
-                        alive = true;
-                        p.x += p.vx;
-                        p.y += p.vy;
-                        p.vy += 0.16;
-                        p.life -= p.decay;
-                        p.rot += p.rotSpd;
-                        ctx.save();
-                        ctx.translate(p.x, p.y);
-                        ctx.rotate(p.rot * Math.PI / 180);
-                        ctx.globalAlpha = Math.max(0, p.life);
-                        ctx.fillStyle = p.color;
-                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-                        ctx.restore();
-                    });
-                    if (alive && frame < 85) { frame++;
-                        requestAnimationFrame(draw); } else ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.clearRect(0,0,canvas.width,canvas.height); let alive=false;
+                    particles.forEach(p=>{ if(p.life<=0) return; alive=true; p.x+=p.vx; p.y+=p.vy; p.vy+=0.16; p.life-=p.decay; p.rot+=p.rotSpd; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.globalAlpha=Math.max(0,p.life); ctx.fillStyle=p.color; ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6); ctx.restore(); });
+                    if(alive&&frame<85) { frame++; requestAnimationFrame(draw); } else ctx.clearRect(0,0,canvas.width,canvas.height);
                 }
                 requestAnimationFrame(draw);
             }
-
             function updateRP() {
-                const st = overallStats();
-                const rp = $('#rpStats');
-                if (!rp) return;
-                rp.innerHTML = `
-              <div class="panel-stat"><span>Subjects</span><span class="pv">${st.totalSubjects}</span></div>
-              <div class="panel-stat"><span>Chapters</span><span class="pv">${st.totalChapters}</span></div>
-              <div class="panel-stat"><span>Done</span><span class="pv">${st.completedLevels}</span></div>
-              <div class="panel-stat"><span>Completion</span><span class="pv">${st.completion}%</span></div>`;
+                const st=overallStats(); const rp=$('#rpStats'); if(!rp) return;
+                rp.innerHTML = `<div class="panel-stat"><span>Subjects</span><span class="pv">${st.totalSubjects}</span></div>
+                <div class="panel-stat"><span>Chapters</span><span class="pv">${st.totalChapters}</span></div>
+                <div class="panel-stat"><span>Done</span><span class="pv">${st.completedLevels}</span></div>
+                <div class="panel-stat"><span>Completion</span><span class="pv">${st.completion}%</span></div>`;
             }
-
             function renderHome() {
-                const st = overallStats();
-                $('#homeStats').innerHTML = `
-              <div class="stat-card"><div class="stat-num">${st.totalSubjects}</div><div class="stat-label">Subjects</div></div>
-              <div class="stat-card"><div class="stat-num">${st.totalChapters}</div><div class="stat-label">Chapters</div></div>
-              <div class="stat-card"><div class="stat-num">${st.completedLevels}</div><div class="stat-label">Done</div></div>
-              <div class="stat-card"><div class="stat-num">${st.completion}%</div><div class="stat-label">Overall</div></div>`;
-                const recent = recentChapters(1);
-                const cl = $('#continueLabel');
-                const cb = $('#continueBtn');
-                if (recent.length && recent[0]) {
-                    const r = recent[0];
-                    cl.textContent = `${r.subjEmoji} ${r.subjName} · ${r.name} (${chProgress(r)}%)`;
-                    cb.onclick = () => { const s = getSubj(r.subjId); if (s) { navigate('detail', s.id);
-                            setTimeout(() => { viewingChapterId = r.id;
-                                refresh(); }, 200); } };
-                } else { cl.textContent = 'No active studies. Create a subject to begin!';
-                    cb.onclick = () => navigate('subjects'); }
-                const rl = $('#recentList');
-                const items = recentChapters(5);
-                if (!items.length) rl.innerHTML =
-                    '<div class="empty-state"><div class="empty-icon">📖</div><h3>No activity</h3><p>Start studying to see progress.</p></div>';
-                else rl.innerHTML = items.map(r => `
-              <div class="flex-between mb-6" style="cursor:pointer;padding:8px 12px;border-radius:var(--radius3);background:var(--surface);border-left:3px solid ${r.subjColor||'#6c5ce7'};" data-sid="${r.subjId}" data-cid="${r.id}">
-                <div><span style="font-weight:500;font-size:0.85rem;">${r.subjEmoji} ${r.subjName} · ${r.name}</span><span class="text-muted" style="font-size:0.7rem;margin-left:6px;">${chProgress(r)}%</span></div>
-                <div class="progress-bar" style="width:60px;"><div class="fill" style="width:${chProgress(r)}%;background:${r.subjColor||'#6c5ce7'};"></div></div>
-              </div>`).join('');
-                rl.querySelectorAll('[data-sid]').forEach(el => el.addEventListener('click', () => { const s = getSubj(el
-                        .dataset.sid); if (s) { navigate('detail', s.id);
-                        setTimeout(() => { viewingChapterId = el.dataset.cid;
-                            refresh(); }, 200); } }));
+                const st=overallStats();
+                $('#homeStats').innerHTML = `<div class="stat-card"><div class="stat-num">${st.totalSubjects}</div><div class="stat-label">Subjects</div></div><div class="stat-card"><div class="stat-num">${st.totalChapters}</div><div class="stat-label">Chapters</div></div><div class="stat-card"><div class="stat-num">${st.completedLevels}</div><div class="stat-label">Done</div></div><div class="stat-card"><div class="stat-num">${st.completion}%</div><div class="stat-label">Overall</div></div>`;
+                const recent=recentChapters(1);
+                const cl=$('#continueLabel'), cb=$('#continueBtn');
+                if(recent.length && recent[0]) {
+                    const r=recent[0]; cl.textContent=`${r.subjEmoji} ${r.subjName} · ${r.name} (${chProgress(r)}%)`;
+                    cb.onclick=()=>{ const s=getSubj(r.subjId); if(s){ navigate('detail',s.id); setTimeout(()=>{ viewingChapterId=r.id; refresh(); },200); } };
+                } else { cl.textContent='No active studies. Create a subject to begin!'; cb.onclick=()=>navigate('subjects'); }
+                const rl=$('#recentList'); const items=recentChapters(5);
+                if(!items.length) rl.innerHTML='<div class="empty-state"><div class="empty-icon">📖</div><h3>No activity</h3><p>Start studying to see progress.</p></div>';
+                else rl.innerHTML = items.map(r=>`<div class="flex-between mb-6" style="cursor:pointer;padding:8px 12px;border-radius:var(--radius3);background:var(--surface);border-left:3px solid ${r.subjColor||'#6c5ce7'};" data-sid="${r.subjId}" data-cid="${r.id}"><div><span style="font-weight:500;font-size:0.85rem;">${r.subjEmoji} ${r.subjName} · ${r.name}</span><span class="text-muted" style="font-size:0.7rem;margin-left:6px;">${chProgress(r)}%</span></div><div class="progress-bar" style="width:60px;"><div class="fill" style="width:${chProgress(r)}%;background:${r.subjColor||'#6c5ce7'};"></div></div></div>`).join('');
+                rl.querySelectorAll('[data-sid]').forEach(el=>el.addEventListener('click',()=>{ const s=getSubj(el.dataset.sid); if(s){ navigate('detail',s.id); setTimeout(()=>{ viewingChapterId=el.dataset.cid; refresh(); },200); } }));
                 updateRP();
             }
-
             function renderSubjects() {
-                const q = ($('#subjectSearch').value || '').toLowerCase().trim();
-                let list = data.subjects;
-                if (q) list = list.filter(s => s.name.toLowerCase().includes(q));
-                const grid = $('#subjectGrid');
-                if (!list.length) {
-                    grid.innerHTML =
-                        `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📚</div><h3>${data.subjects.length?'No matches':'No subjects yet'}</h3><p>${data.subjects.length?'Try a different search.':'Create your first subject.'}</p>${data.subjects.length?'':'<button class="btn btn-accent btn-sm mt-8" id="emptyCreate">+ Create</button>'}</div>`;
-                    const eb = $('#emptyCreate');
-                    if (eb) eb.onclick = () => openSubjectModal();
+                const q=($('#subjectSearch').value||'').toLowerCase().trim();
+                let list=data.subjects; if(q) list=list.filter(s=>s.name.toLowerCase().includes(q));
+                const grid=$('#subjectGrid');
+                if(!list.length) {
+                    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📚</div><h3>${data.subjects.length?'No matches':'No subjects yet'}</h3><p>${data.subjects.length?'Try a different search.':'Create your first subject.'}</p>${data.subjects.length?'':'<button class="btn btn-accent btn-sm mt-8" id="emptyCreate">+ Create</button>'}</div>`;
+                    const eb=$('#emptyCreate'); if(eb) eb.onclick=()=>openSubjectModal();
                 } else {
-                    grid.innerHTML = list.map(s => {
-                        const cp = subjCompletion(s);
-                        return `
-                <div class="subject-card" data-id="${s.id}"><div class="s-color-bar" style="background:${s.color||'#6c5ce7'};"></div>
-                  <span class="s-emoji">${s.emoji||'📘'}</span><div class="s-name">${s.name}</div>
-                  <div class="s-meta">${s.chapters.length} chapters · ${cp}%</div>
-                  <div class="progress-bar"><div class="fill" style="width:${cp}%;background:${s.color||'#6c5ce7'};"></div></div></div>`;
-                    }).join('');
-                    grid.querySelectorAll('.subject-card').forEach(el => el.addEventListener('click', () => navigate(
-                        'detail', el.dataset.id)));
+                    grid.innerHTML = list.map(s=>{ const cp=subjCompletion(s); return `<div class="subject-card" data-id="${s.id}"><div class="s-color-bar" style="background:${s.color||'#6c5ce7'};"></div><span class="s-emoji">${s.emoji||'📘'}</span><div class="s-name">${s.name}</div><div class="s-meta">${s.chapters.length} chapters · ${cp}%</div><div class="progress-bar"><div class="fill" style="width:${cp}%;background:${s.color||'#6c5ce7'};"></div></div></div>`; }).join('');
+                    grid.querySelectorAll('.subject-card').forEach(el=>el.addEventListener('click',()=>navigate('detail',el.dataset.id)));
                 }
                 updateRP();
             }
-
-            // ── RENDER SUBJECT DETAIL (DUOLINGO STYLE) ──
+            function isMobileView() { return window.innerWidth <= 768; }
             function renderDetail() {
-                const s = getSubj(currentSubjId);
-                if (!s) return navigate('subjects');
-                $('#detailHeaderInner').innerHTML =
-                    `<span style="font-size:1.3rem;">${s.emoji||'📘'}</span><h1 style="font-size:1.3rem;font-weight:700;">${s.name}</h1><span class="badge" style="background:${s.color||'#6c5ce7'};color:#fff;">${subjCompletion(s)}%</span>`;
-                const container = $('#subjectDetailContent');
-
-                if (viewingChapterId) {
-                    const ch = getCh(currentSubjId, viewingChapterId);
-                    if (!ch) { viewingChapterId = null;
-                        renderDetail(); return; }
-                    const levels = ch.levels || [];
-                    let html = `
-                <div style="margin-bottom:10px;">
-                  <button class="btn btn-sm mb-8" id="backToChapters">← Back to chapters</button>
-                  <div style="font-weight:600;font-size:1.1rem;">📂 ${ch.name}</div>
-                  <div class="text-muted" style="font-size:0.8rem;">${chProgress(ch)}% complete · ${levels.length} levels</div>
-                  <div class="progress-bar mt-8" style="height:6px;"><div class="fill" style="width:${chProgress(ch)}%;background:${s.color||'#6c5ce7'};"></div></div>
-                </div>
-                <div class="winding-path">`;
-                    levels.forEach((lv, i) => {
-                        const st = lvlStatus(ch, lv);
-                        const cls = st === 'completed' ? 'done' : st === 'active' ? 'active' : 'locked';
-                        const side = i % 2 === 0 ? 'left' : 'right';
-                        const num = i + 1;
-                        if (i > 0) {
-                            const prevLv = levels[i - 1];
-                            const prevSt = lvlStatus(ch, prevLv);
-                            const connDir = (i % 2 === 0) ? 'rtl' : 'ltr';
-                            const connDone = prevSt === 'completed';
-                            const connActive = (st === 'active' && prevSt === 'completed');
-                            html +=
-                                `<div class="path-connector ${connDir} ${connDone?'done':''} ${connActive?'active-conn':''}"></div>`;
-                        }
-                        html += `
-                  <div class="path-node ${side} ${cls}" data-lid="${lv.id}">
-                    <button class="toggle-btn">${st==='active'?'✓ Complete':st==='completed'?'↩ Undo':''}</button>
-                    <div class="node-circle">${st==='completed'?'<span class="check-icon">✓</span>':num}</div>
-                    <div class="node-label">${lv.name}</div>
-                  </div>`;
-                    });
-                    html += `</div>`;
-                    container.innerHTML = html;
-
-                    container.querySelectorAll('.path-node').forEach(el => {
-                        const lid = el.dataset.lid;
-                        const lv = getLvl(currentSubjId, ch.id, lid);
-                        if (!lv) return;
-                        const st = lvlStatus(ch, lv);
-                        el.addEventListener('click', function(e) {
-                            if (e.target.closest('.toggle-btn')) return;
-                            if (st === 'locked') { toast('🔒', 'Locked',
-                                    'Complete previous levels first.'); return; }
-                            toggleLevel(ch, lv);
+                const s=getSubj(currentSubjId); if(!s) return navigate('subjects');
+                $('#detailHeaderInner').innerHTML = `<span style="font-size:1.3rem;">${s.emoji||'📘'}</span><h1 style="font-size:1.3rem;font-weight:700;">${s.name}</h1><span class="badge" style="background:${s.color||'#6c5ce7'};color:#fff;">${subjCompletion(s)}%</span>`;
+                const container=$('#subjectDetailContent');
+                if(viewingChapterId) {
+                    const ch=getCh(currentSubjId, viewingChapterId); if(!ch) { viewingChapterId=null; renderDetail(); return; }
+                    const levels=ch.levels||[];
+                    // Mobile: straight vertical path; Desktop: winding path
+                    if(isMobileView()) {
+                        let html = `<div style="margin-bottom:10px;"><button class="btn btn-sm mb-8" id="backToChapters">← Back to chapters</button><div style="font-weight:600;font-size:1.1rem;">📂 ${ch.name}</div><div class="text-muted" style="font-size:0.8rem;">${chProgress(ch)}% complete · ${levels.length} levels</div><div class="progress-bar mt-8" style="height:6px;"><div class="fill" style="width:${chProgress(ch)}%;background:${s.color||'#6c5ce7'};"></div></div></div><div class="vertical-path">`;
+                        levels.forEach((lv,i)=>{
+                            const st=lvlStatus(ch,lv); const cls=st==='completed'?'done':st==='active'?'active':'locked';
+                            const num=i+1;
+                            if(i>0) {
+                                const prevSt=lvlStatus(ch,levels[i-1]);
+                                const connDone=prevSt==='completed'; const connActive=(st==='active' && prevSt==='completed');
+                                html += `<div class="vertical-connector ${connDone?'done':''} ${connActive?'active':''}"></div>`;
+                            }
+                            html += `<div class="path-node-vert ${cls}" data-lid="${lv.id}">
+                                <button class="toggle-btn-vert">${st==='active'?'✓ Complete':st==='completed'?'↩ Undo':''}</button>
+                                <div class="node-circle-vert">${st==='completed'?'<span class="check-icon">✓</span>':num}</div>
+                                <div class="node-label-vert">${lv.name}</div>
+                            </div>`;
                         });
-                        const toggleBtn = el.querySelector('.toggle-btn');
-                        if (toggleBtn) {
-                            toggleBtn.addEventListener('click', function(ev) {
-                                ev.stopPropagation();
-                                toggleLevel(ch, lv);
-                            });
-                        }
-                    });
-                    $('#backToChapters').addEventListener('click', () => { viewingChapterId = null;
-                        refresh(); });
+                        html += '</div>'; container.innerHTML = html;
+                        container.querySelectorAll('.path-node-vert').forEach(el=>{
+                            const lid=el.dataset.lid; const lv=getLvl(currentSubjId, ch.id, lid); if(!lv) return;
+                            const st=lvlStatus(ch,lv);
+                            el.addEventListener('click', function(e) { if(e.target.closest('.toggle-btn-vert')) return; if(st==='locked') { toast('🔒','Locked','Complete previous levels first.'); return; } toggleLevel(ch,lv); });
+                            const toggleBtn=el.querySelector('.toggle-btn-vert'); if(toggleBtn) toggleBtn.addEventListener('click', function(ev) { ev.stopPropagation(); toggleLevel(ch,lv); });
+                        });
+                    } else {
+                        // Desktop winding path (unchanged)
+                        let html = `<div style="margin-bottom:10px;"><button class="btn btn-sm mb-8" id="backToChapters">← Back to chapters</button><div style="font-weight:600;font-size:1.1rem;">📂 ${ch.name}</div><div class="text-muted" style="font-size:0.8rem;">${chProgress(ch)}% complete · ${levels.length} levels</div><div class="progress-bar mt-8" style="height:6px;"><div class="fill" style="width:${chProgress(ch)}%;background:${s.color||'#6c5ce7'};"></div></div></div><div class="winding-path">`;
+                        levels.forEach((lv,i)=>{
+                            const st=lvlStatus(ch,lv); const cls=st==='completed'?'done':st==='active'?'active':'locked';
+                            const side=i%2===0?'left':'right'; const num=i+1;
+                            if(i>0) {
+                                const prevLv=levels[i-1]; const prevSt=lvlStatus(ch,prevLv);
+                                const connDir=(i%2===0)?'rtl':'ltr';
+                                const connDone=prevSt==='completed'; const connActive=(st==='active' && prevSt==='completed');
+                                html += `<div class="path-connector ${connDir} ${connDone?'done':''} ${connActive?'active-conn':''}"></div>`;
+                            }
+                            html += `<div class="path-node ${side} ${cls}" data-lid="${lv.id}"><button class="toggle-btn">${st==='active'?'✓ Complete':st==='completed'?'↩ Undo':''}</button><div class="node-circle">${st==='completed'?'<span class="check-icon">✓</span>':num}</div><div class="node-label">${lv.name}</div></div>`;
+                        });
+                        html += '</div>'; container.innerHTML = html;
+                        container.querySelectorAll('.path-node').forEach(el=>{
+                            const lid=el.dataset.lid; const lv=getLvl(currentSubjId, ch.id, lid); if(!lv) return;
+                            const st=lvlStatus(ch,lv);
+                            el.addEventListener('click', function(e) { if(e.target.closest('.toggle-btn')) return; if(st==='locked') { toast('🔒','Locked','Complete previous levels first.'); return; } toggleLevel(ch,lv); });
+                            const toggleBtn=el.querySelector('.toggle-btn'); if(toggleBtn) toggleBtn.addEventListener('click', function(ev) { ev.stopPropagation(); toggleLevel(ch,lv); });
+                        });
+                    }
+                    $('#backToChapters').addEventListener('click', ()=>{ viewingChapterId=null; refresh(); });
                 } else {
-                    const chapters = s.chapters || [];
-                    if (!chapters.length) {
-                        container.innerHTML =
-                            '<div class="empty-state"><div class="empty-icon">📂</div><h3>No chapters yet</h3><p>Add a chapter to start building your path.</p><button class="btn btn-accent btn-sm mt-8" id="emptyChBtn">+ Add Chapter</button></div>';
-                        const eb = $('#emptyChBtn');
-                        if (eb) eb.onclick = () => openChapterModal(currentSubjId);
+                    const chapters=s.chapters||[];
+                    if(!chapters.length) {
+                        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><h3>No chapters yet</h3><p>Add a chapter to start building your path.</p><button class="btn btn-accent btn-sm mt-8" id="emptyChBtn">+ Add Chapter</button></div>';
+                        const eb=$('#emptyChBtn'); if(eb) eb.onclick=()=>openChapterModal(currentSubjId);
                     } else {
                         let html = '<div class="unit-path">';
-                        chapters.forEach((ch, i) => {
-                            const pct = chProgress(ch);
-                            const al = activeLvl(ch);
-                            const isDone = pct === 100;
-                            const isActive = al && !al.completed;
-                            const cardCls = isDone ? 'done' : (isActive ? 'active' : '');
-                            const statusLabel = isDone ? '✅ Done' : (isActive ? '▶ Active' :
-                                '📌');
-                            html += `
-                    <div class="unit-node-wrap" data-cid="${ch.id}">
-                      <div class="unit-card ${cardCls}">
-                        <div class="uc-dot"></div>
-                        <div class="uc-top"><span class="uc-name">${ch.name}</span><span class="badge ${isDone?'badge-done':isActive?'badge-active':'badge-locked'}">${statusLabel}</span></div>
-                        <div class="uc-meta">${ch.levels.length} levels</div>
-                        <div class="uc-progress"><div class="progress-bar"><div class="fill ${isDone?'green':''}" style="width:${pct}%;background:${isDone?'var(--green)':s.color||'#6c5ce7'};"></div></div><span>${pct}%</span></div>
-                        <div class="flex-row mt-8 gap-sm">
-                          <button class="btn btn-sm btn-accent uc-start-btn" data-cid="${ch.id}">${isActive?'▶ Continue':'📖 Open'}</button>
-                          <button class="btn-icon edit uc-edit-btn" data-cid="${ch.id}" title="Edit">✏️</button>
-                          <button class="btn-icon danger uc-del-btn" data-cid="${ch.id}" title="Delete">✕</button>
-                        </div>
-                      </div>
-                    </div>`;
-                                if (i < chapters.length - 1) html +=
-                                    `<div class="unit-connector ${isDone?'done':''}"></div>`;
+                        chapters.forEach((ch,i)=>{
+                            const pct=chProgress(ch); const al=activeLvl(ch); const isDone=pct===100; const isActive=al && !al.completed;
+                            const cardCls=isDone?'done':(isActive?'active':''); const statusLabel=isDone?'✅ Done':(isActive?'▶ Active':'📌');
+                            html += `<div class="unit-node-wrap" data-cid="${ch.id}"><div class="unit-card ${cardCls}"><div class="uc-dot"></div><div class="uc-top"><span class="uc-name">${ch.name}</span><span class="badge ${isDone?'badge-done':isActive?'badge-active':'badge-locked'}">${statusLabel}</span></div><div class="uc-meta">${ch.levels.length} levels</div><div class="uc-progress"><div class="progress-bar"><div class="fill ${isDone?'green':''}" style="width:${pct}%;background:${isDone?'var(--green)':s.color||'#6c5ce7'};"></div></div><span>${pct}%</span></div><div class="flex-row mt-8 gap-sm"><button class="btn btn-sm btn-accent uc-start-btn" data-cid="${ch.id}">${isActive?'▶ Continue':'📖 Open'}</button><button class="btn-icon edit uc-edit-btn" data-cid="${ch.id}" title="Edit">✏️</button><button class="btn-icon danger uc-del-btn" data-cid="${ch.id}" title="Delete">✕</button></div></div></div>`;
+                            if(i<chapters.length-1) html += `<div class="unit-connector ${isDone?'done':''}"></div>`;
                         });
-                        html += '</div>';
-                        container.innerHTML = html;
-                        container.querySelectorAll('.unit-node-wrap').forEach(el => {
-                            el.addEventListener('click', function(e) {
-                                if (e.target.closest('button')) return;
-                                viewingChapterId = this.dataset.cid;
-                                refresh();
-                            });
-                        });
-                        container.querySelectorAll('.uc-start-btn').forEach(btn => btn.addEventListener(
-                            'click', function(e) {
-                                e.stopPropagation();
-                                viewingChapterId = this.dataset.cid;
-                                refresh();
-                            }));
-                        container.querySelectorAll('.uc-edit-btn').forEach(btn => btn.addEventListener(
-                            'click', function(e) {
-                                e.stopPropagation();
-                                openChapterModal(currentSubjId, this.dataset.cid);
-                            }));
-                        container.querySelectorAll('.uc-del-btn').forEach(btn => btn.addEventListener('click',
-                            function(e) {
-                                e.stopPropagation();
-                                deleteChapter(currentSubjId, this.dataset.cid);
-                            }));
+                        html += '</div>'; container.innerHTML = html;
+                        container.querySelectorAll('.unit-node-wrap').forEach(el=>{ el.addEventListener('click', function(e) { if(e.target.closest('button')) return; viewingChapterId=this.dataset.cid; refresh(); }); });
+                        container.querySelectorAll('.uc-start-btn').forEach(btn=>btn.addEventListener('click', function(e) { e.stopPropagation(); viewingChapterId=this.dataset.cid; refresh(); }));
+                        container.querySelectorAll('.uc-edit-btn').forEach(btn=>btn.addEventListener('click', function(e) { e.stopPropagation(); openChapterModal(currentSubjId, this.dataset.cid); }));
+                        container.querySelectorAll('.uc-del-btn').forEach(btn=>btn.addEventListener('click', function(e) { e.stopPropagation(); deleteChapter(currentSubjId, this.dataset.cid); }));
                     }
                 }
                 updateRP();
             }
-
             function toggleLevel(ch, lv) {
-                lv.completed = !lv.completed;
-                ch.lastOpened = Date.now();
-                save();
-                if (lv.completed) {
-                    confetti();
-                    refresh();
-                    const nxt = nextLvl(ch);
-                    if (nxt) setTimeout(() => toast('➡️', 'Next up', nxt.name), 300);
-                    else setTimeout(() => toast('🎉', 'Chapter Complete!', `"${ch.name}" fully done.`), 300);
-                } else {
-                    refresh();
-                    toast('↩️', 'Undone', `"${lv.name}" marked incomplete.`);
-                }
+                lv.completed=!lv.completed; ch.lastOpened=Date.now(); save();
+                if(lv.completed) { confetti(); refresh(); const nxt=nextLvl(ch); if(nxt) setTimeout(()=>toast('➡️','Next up',nxt.name),300); else setTimeout(()=>toast('🎉','Chapter Complete!',`"${ch.name}" fully done.`),300); }
+                else { refresh(); toast('↩️','Undone',`"${lv.name}" marked incomplete.`); }
             }
-
             function renderStatistics() {
-                const st = overallStats();
-                $('#statsGrid').innerHTML = `
-              <div class="stat-card"><div class="stat-num">${st.totalSubjects}</div><div class="stat-label">Subjects</div></div>
-              <div class="stat-card"><div class="stat-num">${st.totalChapters}</div><div class="stat-label">Chapters</div></div>
-              <div class="stat-card"><div class="stat-num">${st.totalLevels}</div><div class="stat-label">Total Levels</div></div>
-              <div class="stat-card"><div class="stat-num">${st.completedLevels}</div><div class="stat-label">Completed</div></div>
-              <div class="stat-card"><div class="stat-num">${st.remaining}</div><div class="stat-label">Remaining</div></div>
-              <div class="stat-card"><div class="stat-num">${st.completion}%</div><div class="stat-label">Overall</div></div>`;
-                const sorted = [...data.subjects].sort((a, b) => subjCompletion(b) - subjCompletion(a));
-                $('#topSubjects').innerHTML = sorted.length ? sorted.slice(0, 4).map(s => `
-              <div style="background:var(--surface);padding:10px 14px;border-radius:var(--radius2);border-left:3px solid ${s.color||'#6c5ce7'};"><div style="font-weight:500;">${s.emoji||'📘'} ${s.name}</div><div style="font-size:0.78rem;color:var(--text2);">${subjCompletion(s)}% · ${s.chapters.length} chapters</div></div>
-            `).join('') : '<div class="text-muted">No subjects yet.</div>';
-                setTimeout(renderCharts, 100);
-                updateRP();
+                const st=overallStats();
+                $('#statsGrid').innerHTML = `<div class="stat-card"><div class="stat-num">${st.totalSubjects}</div><div class="stat-label">Subjects</div></div><div class="stat-card"><div class="stat-num">${st.totalChapters}</div><div class="stat-label">Chapters</div></div><div class="stat-card"><div class="stat-num">${st.totalLevels}</div><div class="stat-label">Total Levels</div></div><div class="stat-card"><div class="stat-num">${st.completedLevels}</div><div class="stat-label">Completed</div></div><div class="stat-card"><div class="stat-num">${st.remaining}</div><div class="stat-label">Remaining</div></div><div class="stat-card"><div class="stat-num">${st.completion}%</div><div class="stat-label">Overall</div></div>`;
+                const sorted=[...data.subjects].sort((a,b)=>subjCompletion(b)-subjCompletion(a));
+                $('#topSubjects').innerHTML = sorted.length ? sorted.slice(0,4).map(s=>`<div style="background:var(--surface);padding:10px 14px;border-radius:var(--radius2);border-left:3px solid ${s.color||'#6c5ce7'};"><div style="font-weight:500;">${s.emoji||'📘'} ${s.name}</div><div style="font-size:0.78rem;color:var(--text2);">${subjCompletion(s)}% · ${s.chapters.length} chapters</div></div>`).join('') : '<div class="text-muted">No subjects yet.</div>';
+                setTimeout(renderCharts,100); updateRP();
             }
-
             function renderCharts() {
-                Object.values(chartInstances).forEach(c => c.destroy());
-                chartInstances = {};
-                const ctx1 = document.getElementById('subjectChart')?.getContext('2d');
-                if (ctx1) {
-                    const labels = data.subjects.map(s => s.emoji + ' ' + s.name);
-                    const vals = data.subjects.map(s => subjCompletion(s));
-                    const cols = data.subjects.map(s => s.color || '#6c5ce7');
-                    chartInstances.subj = new Chart(ctx1, {
-                        type: 'doughnut',
-                        data: { labels: labels.length ? labels : ['No Data'],
-                            datasets: [{ data: vals.length ? vals : [1],
-                                backgroundColor: vals.length ? cols : ['#333'],
-                                borderWidth: 0 }] },
-                        options: { responsive: true, maintainAspectRatio: false,
-                            plugins: { legend: { position: 'bottom',
-                                    labels: { color: getComputedStyle(document.body)
-                                            .getPropertyValue('--text2').trim() || '#a0a0b0',
-                                        font: { size: 10 }, padding: 10 } } }, cutout: '60%' }
-                    });
+                Object.values(chartInstances).forEach(c=>c.destroy()); chartInstances={};
+                const ctx1=document.getElementById('subjectChart')?.getContext('2d');
+                if(ctx1) {
+                    const labels=data.subjects.map(s=>s.emoji+' '+s.name); const vals=data.subjects.map(s=>subjCompletion(s)); const cols=data.subjects.map(s=>s.color||'#6c5ce7');
+                    chartInstances.subj = new Chart(ctx1, { type:'doughnut', data:{ labels:labels.length?labels:['No Data'], datasets:[{ data:vals.length?vals:[1], backgroundColor:vals.length?cols:['#333'], borderWidth:0 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{ color:getComputedStyle(document.body).getPropertyValue('--text2').trim()||'#a0a0b0', font:{size:10}, padding:10 } } }, cutout:'60%' } });
                 }
-                const ctx2 = document.getElementById('overviewChart')?.getContext('2d');
-                if (ctx2) {
-                    const st = overallStats();
-                    chartInstances.ov = new Chart(ctx2, {
-                        type: 'bar',
-                        data: { labels: ['Completed', 'Remaining'],
-                            datasets: [{ data: [st.completedLevels, st.remaining],
-                                backgroundColor: ['#2dd4a0', '#f87171'], borderRadius: 5,
-                                borderWidth: 0 }] },
-                        options: { responsive: true, maintainAspectRatio: false,
-                            plugins: { legend: { display: false } },
-                            scales: { y: { beginAtZero: true,
-                                    grid: { color: 'rgba(128,128,128,0.08)' },
-                                    ticks: { color: getComputedStyle(document.body)
-                                            .getPropertyValue('--text3').trim() || '#5a5a6a' } },
-                                x: { grid: { display: false },
-                                    ticks: { color: getComputedStyle(document.body)
-                                            .getPropertyValue('--text3').trim() || '#5a5a6a' } } }
-                        }
-                    });
+                const ctx2=document.getElementById('overviewChart')?.getContext('2d');
+                if(ctx2) {
+                    const st=overallStats();
+                    chartInstances.ov = new Chart(ctx2, { type:'bar', data:{ labels:['Completed','Remaining'], datasets:[{ data:[st.completedLevels, st.remaining], backgroundColor:['#2dd4a0','#f87171'], borderRadius:5, borderWidth:0 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, grid:{ color:'rgba(128,128,128,0.08)' }, ticks:{ color:getComputedStyle(document.body).getPropertyValue('--text3').trim()||'#5a5a6a' } }, x:{ grid:{ display:false }, ticks:{ color:getComputedStyle(document.body).getPropertyValue('--text3').trim()||'#5a5a6a' } } } } });
                 }
             }
-
-            function renderSettings() { applySettings();
-                updateRP(); }
-
+            function renderSettings() { applySettings(); updateRP(); }
             function refresh() {
-                if (currentPage === 'home') renderHome();
-                else if (currentPage === 'subjects') renderSubjects();
-                else if (currentPage === 'detail') renderDetail();
-                else if (currentPage === 'statistics') renderStatistics();
-                else if (currentPage === 'settings') renderSettings();
+                if(currentPage==='home') renderHome();
+                else if(currentPage==='subjects') renderSubjects();
+                else if(currentPage==='detail') renderDetail();
+                else if(currentPage==='statistics') renderStatistics();
+                else if(currentPage==='settings') renderSettings();
                 updateRP();
             }
-
-            // ── SUBJECT MODAL ──
-            let editingSubjId = null;
-
+            let editingSubjId=null;
             function openSubjectModal(id) {
-                editingSubjId = id || null;
-                $('#subjModalTitle').textContent = id ? 'Edit Subject' : 'New Subject';
-                $('#subjSubmitBtn').textContent = id ? 'Update' : 'Create';
-                const s = id ? getSubj(id) : null;
-                $('#subjEmoji').value = s ? s.emoji : '📘';
-                $('#subjName').value = s ? s.name : '';
-                $('#subjRoadmap').value = (s ? s.roadmap : DEFAULT_ROADMAP).join('\n');
-                const cd = $('#subjColorDots');
-                cd.innerHTML = COLORS.map(c =>
-                    `<div class="dot${c===(s?s.color:COLORS[0])?' sel':''}" data-color="${c}" style="background:${c};"></div>`
-                    ).join('');
-                cd.querySelectorAll('.dot').forEach(d => d.addEventListener('click', function() {
-                    cd.querySelectorAll('.dot').forEach(dd => dd.classList.remove('sel'));
-                    this.classList.add('sel');
-                }));
+                editingSubjId=id||null; $('#subjModalTitle').textContent=id?'Edit Subject':'New Subject'; $('#subjSubmitBtn').textContent=id?'Update':'Create';
+                const s=id?getSubj(id):null; $('#subjEmoji').value=s?s.emoji:'📘'; $('#subjName').value=s?s.name:''; $('#subjRoadmap').value=(s?s.roadmap:DEFAULT_ROADMAP).join('\n');
+                const cd=$('#subjColorDots'); cd.innerHTML=COLORS.map(c=>`<div class="dot${c===(s?s.color:COLORS[0])?' sel':''}" data-color="${c}" style="background:${c};"></div>`).join('');
+                cd.querySelectorAll('.dot').forEach(d=>d.addEventListener('click', function() { cd.querySelectorAll('.dot').forEach(dd=>dd.classList.remove('sel')); this.classList.add('sel'); }));
                 $('#subjectModal').classList.add('open');
             }
-
             function closeSubjectModal() { $('#subjectModal').classList.remove('open'); }
             $('#subjectForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const emoji = $('#subjEmoji').value.trim() || '📘';
-                const name = $('#subjName').value.trim();
-                const roadmap = $('#subjRoadmap').value.trim().split('\n').map(l => l.trim()).filter(Boolean);
-                const selDot = $('#subjColorDots').querySelector('.dot.sel');
-                const color = selDot ? selDot.dataset.color : COLORS[0];
-                if (!name) return alert('Please enter a name.');
-                if (!roadmap.length) return alert('Roadmap needs at least one step.');
-                if (editingSubjId) {
-                    const s = getSubj(editingSubjId);
-                    if (s) { const oldR = [...(s.roadmap || [])];
-                        s.emoji = emoji;
-                        s.name = name;
-                        s.color = color;
-                        s.roadmap = roadmap; if (JSON.stringify(oldR) !== JSON.stringify(roadmap)) syncChaptersRoadmap(s,
-                            roadmap);
-                        save();
-                        closeSubjectModal();
-                        refresh();
-                        toast('✅', 'Updated', `"${name}" saved.`); }
+                const emoji=$('#subjEmoji').value.trim()||'📘'; const name=$('#subjName').value.trim(); const roadmap=$('#subjRoadmap').value.trim().split('\n').map(l=>l.trim()).filter(Boolean);
+                const selDot=$('#subjColorDots').querySelector('.dot.sel'); const color=selDot?selDot.dataset.color:COLORS[0];
+                if(!name) return alert('Please enter a name.'); if(!roadmap.length) return alert('Roadmap needs at least one step.');
+                if(editingSubjId) {
+                    const s=getSubj(editingSubjId); if(s) { const oldR=[...(s.roadmap||[])]; s.emoji=emoji; s.name=name; s.color=color; s.roadmap=roadmap; if(JSON.stringify(oldR)!==JSON.stringify(roadmap)) syncChaptersRoadmap(s, roadmap); save(); closeSubjectModal(); refresh(); toast('✅','Updated',`"${name}" saved.`); }
                 } else {
-                    data.subjects.push({ id: genId(), emoji, name, color, roadmap, chapters: [],
-                        createdAt: Date.now() });
-                    save();
-                    closeSubjectModal();
-                    refresh();
-                    toast('🎉', 'Created', `"${name}" is ready!`); }
-            });
-            $('#createSubjectBtn').addEventListener('click', () => openSubjectModal());
-            $('#homeCreateBtn').addEventListener('click', () => openSubjectModal());
-            $('#editSubjectBtn').addEventListener('click', () => { if (currentSubjId) openSubjectModal(currentSubjId); });
-
-            // ── CHAPTER MODAL ──
-            let chSubjId = null,
-                editingChId = null;
-
-            function openChapterModal(subjId, chId) { chSubjId = subjId;
-                editingChId = chId || null;
-                $('#chModalTitle').textContent = chId ? 'Edit Chapter' : 'New Chapter';
-                $('#chSubmitBtn').textContent = chId ? 'Update' : 'Create';
-                $('#chName').value = chId ? (getCh(subjId, chId)?.name || '') : '';
-                $('#chapterModal').classList.add('open'); }
-
-            function closeChapterModal() { $('#chapterModal').classList.remove('open'); }
-            $('#chapterForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = $('#chName').value.trim();
-                if (!name) return alert('Please enter a name.');
-                const s = getSubj(chSubjId);
-                if (!s) return;
-                if (editingChId) { const c = getCh(chSubjId, editingChId); if (c) { c.name = name;
-                        save();
-                        closeChapterModal();
-                        refresh();
-                        toast('✅', 'Updated', 'Chapter renamed.'); } } else {
-                    const roadmap = s.roadmap || DEFAULT_ROADMAP;
-                    s.chapters.push({ id: genId(), name, levels: roadmap.map(step => ({ id: genId(), name: step,
-                            completed: false })), lastOpened: Date.now() });
-                    save();
-                    closeChapterModal();
-                    refresh();
-                    toast('📂', 'Created', `"${name}" added.`); }
-            });
-            $('#addChapterBtn').addEventListener('click', () => { if (currentSubjId) openChapterModal(currentSubjId); });
-
-            function deleteChapter(subjId, chId) {
-                if (!confirm('Delete this chapter? All progress will be lost.')) return;
-                const s = getSubj(subjId);
-                if (!s) return;
-                s.chapters = s.chapters.filter(c => c.id !== chId);
-                if (viewingChapterId === chId) viewingChapterId = null;
-                save();
-                refresh();
-                toast('🗑️', 'Deleted', 'Chapter removed.'); }
-
-            // ── ROADMAP MODAL ──
-            $('#editRoadmapBtn').addEventListener('click', () => { if (currentSubjId) openRoadmapModal(currentSubjId); });
-
-            function openRoadmapModal(subjId) {
-                const s = getSubj(subjId);
-                if (!s) return;
-                const roadmap = s.roadmap || DEFAULT_ROADMAP;
-                const steps = $('#roadmapSteps');
-                steps.innerHTML = roadmap.map((st, i) => `
-              <div class="flex-row gap-sm mb-6" data-idx="${i}"><span style="color:var(--text3);">⠿</span><input type="text" value="${st}" data-idx="${i}" style="flex:1;padding:7px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn-icon danger step-rm" data-idx="${i}">✕</button></div>`).join(
-                    '');
-                steps.querySelectorAll('.step-rm').forEach(b => b.addEventListener('click', function() {
-                    if (steps.querySelectorAll('.flex-row').length <= 1) return toast('⚠️', 'Minimum one',
-                        '');
-                    this.closest('.flex-row').remove();
-                    steps.querySelectorAll('.flex-row').forEach((el, j) => { el.dataset.idx = j;
-                        el.querySelector('input').dataset.idx = j;
-                        el.querySelector('.step-rm').dataset.idx = j; });
-                }));
-                $('#addStepBtn').onclick = () => {
-                    const v = $('#newStepInput').value.trim();
-                    if (!v) return;
-                    const idx = steps.querySelectorAll('.flex-row').length;
-                    const div = document.createElement('div');
-                    div.className = 'flex-row gap-sm mb-6';
-                    div.dataset.idx = idx;
-                    div.innerHTML =
-                        `<span style="color:var(--text3);">⠿</span><input type="text" value="${v}" data-idx="${idx}" style="flex:1;padding:7px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn-icon danger step-rm" data-idx="${idx}">✕</button>`;
-                    steps.appendChild(div);
-                    $('#newStepInput').value = '';
-                    div.querySelector('.step-rm').addEventListener('click', function() {
-                        if (steps.querySelectorAll('.flex-row').length <= 1) return toast('⚠️',
-                            'Minimum one', '');
-                        this.closest('.flex-row').remove();
-                        steps.querySelectorAll('.flex-row').forEach((el, j) => { el.dataset.idx = j;
-                            el.querySelector('input').dataset.idx = j;
-                            el.querySelector('.step-rm').dataset.idx = j; });
-                    });
-                };
-                $('#saveRoadmapBtn').onclick = () => {
-                    const newR = [];
-                    steps.querySelectorAll('input').forEach(inp => { const v = inp.value.trim(); if (v) newR.push(
-                            v); });
-                    if (!newR.length) return toast('⚠️', 'Empty', 'Add at least one step.');
-                    s.roadmap = newR;
-                    syncChaptersRoadmap(s, newR);
-                    save();
-                    $('#roadmapModal').classList.remove('open');
-                    refresh();
-                    toast('✅', 'Roadmap updated', 'All chapters synced.'); };
-                $('#roadmapModal').classList.add('open');
-            }
-            $('#deleteSubjectBtn').addEventListener('click', () => {
-                if (!currentSubjId) return;
-                if (confirm('Delete this subject and all its chapters? This cannot be undone.')) {
-                    data.subjects = data.subjects.filter(s => s.id !== currentSubjId);
-                    viewingChapterId = null;
-                    save();
-                    navigate('subjects');
-                    toast('🗑️', 'Deleted', 'Subject removed.'); }
-            });
-            $('#exportBtn').addEventListener('click', () => {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `loopers_backup_${new Date().toISOString().slice(0,10)}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-                toast('📤', 'Exported', 'Data downloaded.'); });
-            $('#importBtn').addEventListener('click', () => $('#importFile').click());
-            $('#importFile').addEventListener('change', function() {
-                const f = this.files[0];
-                if (!f) return;
-                const reader = new FileReader();
-                reader.onload = function(ev) { try { const imp = JSON.parse(ev.target.result); if (imp.subjects &&
-                            imp.settings) { data = imp;
-                            save();
-                            viewingChapterId = null;
-                            refresh();
-                            navigate('home');
-                            toast('📥', 'Imported', 'Data restored.'); } else alert(
-                            'Invalid file.'); } catch (e) { alert('Error: ' + e.message); } };
-                reader.readAsText(f);
-                this.value = ''; });
-
-            // ── NEW: Import JSON Text ──
-            $('#importTextBtn').addEventListener('click', () => $('#textImportModal').classList.add('open'));
-            $('#importTextSubmit').addEventListener('click', () => {
-                const raw = $('#jsonTextInput').value.trim();
-                if (!raw) return toast('⚠️', 'Empty', 'Please paste JSON data.');
-                try {
-                    const imp = JSON.parse(raw);
-                    if (imp.subjects && imp.settings) {
-                        data = imp;
-                        save();
-                        viewingChapterId = null;
-                        refresh();
-                        navigate('home');
-                        $('#textImportModal').classList.remove('open');
-                        $('#jsonTextInput').value = '';
-                        toast('📥', 'Imported', 'Data restored from text.');
-                    } else {
-                        alert('Invalid data structure. JSON must contain "subjects" and "settings" keys.');
-                    }
-                } catch (e) {
-                    alert('Invalid JSON: ' + e.message);
+                    data.subjects.push({ id:genId(), emoji, name, color, roadmap, chapters:[], createdAt:Date.now() }); save(); closeSubjectModal(); refresh(); toast('🎉','Created',`"${name}" is ready!`);
                 }
             });
-
-            $('#resetBtn').addEventListener('click', () => {
-                if (confirm('⚠️ Reset ALL data?') && confirm('Are you sure?')) { data = defaultData();
-                    save();
-                    viewingChapterId = null;
-                    refresh();
-                    navigate('home');
-                    toast('🗑️', 'Reset', 'All data cleared.'); } });
-            document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => document
-                .getElementById(el.dataset.close)?.classList.remove('open')));
-            document.querySelectorAll('.modal-overlay').forEach(el => el.addEventListener('click', function(e) { if (e
-                    .target === this) this.classList.remove('open'); }));
-            document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll(
-                    '.modal-overlay.open').forEach(el => el.classList.remove('open')); });
-            $('#subjectSearch')?.addEventListener('input', () => { if (currentPage === 'subjects') renderSubjects(); });
-
-            function init() {
-                applySettings();
-                buildAccentDots();
-                navigate('home');
-                if (!data.subjects.length) setTimeout(() => toast('👋', 'Welcome!',
-                    'Create a subject or explore the sample data.'), 600);
+            $('#createSubjectBtn').addEventListener('click', ()=>openSubjectModal());
+            $('#homeCreateBtn').addEventListener('click', ()=>openSubjectModal());
+            $('#editSubjectBtn').addEventListener('click', ()=>{ if(currentSubjId) openSubjectModal(currentSubjId); });
+            let chSubjId=null, editingChId=null;
+            function openChapterModal(subjId, chId) { chSubjId=subjId; editingChId=chId||null; $('#chModalTitle').textContent=chId?'Edit Chapter':'New Chapter'; $('#chSubmitBtn').textContent=chId?'Update':'Create'; $('#chName').value=chId?(getCh(subjId,chId)?.name||''):''; $('#chapterModal').classList.add('open'); }
+            function closeChapterModal() { $('#chapterModal').classList.remove('open'); }
+            $('#chapterForm').addEventListener('submit', function(e) {
+                e.preventDefault(); const name=$('#chName').value.trim(); if(!name) return alert('Please enter a name.'); const s=getSubj(chSubjId); if(!s) return;
+                if(editingChId) { const c=getCh(chSubjId, editingChId); if(c) { c.name=name; save(); closeChapterModal(); refresh(); toast('✅','Updated','Chapter renamed.'); } }
+                else { const roadmap=s.roadmap||DEFAULT_ROADMAP; s.chapters.push({ id:genId(), name, levels: roadmap.map(step=>({ id:genId(), name:step, completed:false })), lastOpened:Date.now() }); save(); closeChapterModal(); refresh(); toast('📂','Created',`"${name}" added.`); }
+            });
+            $('#addChapterBtn').addEventListener('click', ()=>{ if(currentSubjId) openChapterModal(currentSubjId); });
+            function deleteChapter(subjId, chId) {
+                if(!confirm('Delete this chapter? All progress will be lost.')) return; const s=getSubj(subjId); if(!s) return; s.chapters=s.chapters.filter(c=>c.id!==chId); if(viewingChapterId===chId) viewingChapterId=null; save(); refresh(); toast('🗑️','Deleted','Chapter removed.');
             }
+            $('#editRoadmapBtn').addEventListener('click', ()=>{ if(currentSubjId) openRoadmapModal(currentSubjId); });
+            function openRoadmapModal(subjId) {
+                const s=getSubj(subjId); if(!s) return; const roadmap=s.roadmap||DEFAULT_ROADMAP;
+                const steps=$('#roadmapSteps'); steps.innerHTML=roadmap.map((st,i)=>`<div class="flex-row gap-sm mb-6" data-idx="${i}"><span style="color:var(--text3);">⠿</span><input type="text" value="${st}" data-idx="${i}" style="flex:1;padding:7px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn-icon danger step-rm" data-idx="${i}">✕</button></div>`).join('');
+                steps.querySelectorAll('.step-rm').forEach(b=>b.addEventListener('click', function() { if(steps.querySelectorAll('.flex-row').length<=1) return toast('⚠️','Minimum one',''); this.closest('.flex-row').remove(); steps.querySelectorAll('.flex-row').forEach((el,j)=>{ el.dataset.idx=j; el.querySelector('input').dataset.idx=j; el.querySelector('.step-rm').dataset.idx=j; }); }));
+                $('#addStepBtn').onclick=()=>{
+                    const v=$('#newStepInput').value.trim(); if(!v) return;
+                    const idx=steps.querySelectorAll('.flex-row').length; const div=document.createElement('div'); div.className='flex-row gap-sm mb-6'; div.dataset.idx=idx;
+                    div.innerHTML=`<span style="color:var(--text3);">⠿</span><input type="text" value="${v}" data-idx="${idx}" style="flex:1;padding:7px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:none;font-family:var(--font);" /><button class="btn-icon danger step-rm" data-idx="${idx}">✕</button>`;
+                    steps.appendChild(div); $('#newStepInput').value='';
+                    div.querySelector('.step-rm').addEventListener('click', function() { if(steps.querySelectorAll('.flex-row').length<=1) return toast('⚠️','Minimum one',''); this.closest('.flex-row').remove(); steps.querySelectorAll('.flex-row').forEach((el,j)=>{ el.dataset.idx=j; el.querySelector('input').dataset.idx=j; el.querySelector('.step-rm').dataset.idx=j; }); });
+                };
+                $('#saveRoadmapBtn').onclick=()=>{
+                    const newR=[]; steps.querySelectorAll('input').forEach(inp=>{ const v=inp.value.trim(); if(v) newR.push(v); });
+                    if(!newR.length) return toast('⚠️','Empty','Add at least one step.');
+                    s.roadmap=newR; syncChaptersRoadmap(s, newR); save(); $('#roadmapModal').classList.remove('open'); refresh(); toast('✅','Roadmap updated','All chapters synced.');
+                };
+                $('#roadmapModal').classList.add('open');
+            }
+            $('#deleteSubjectBtn').addEventListener('click', ()=>{
+                if(!currentSubjId) return; if(confirm('Delete this subject and all its chapters? This cannot be undone.')) { data.subjects=data.subjects.filter(s=>s.id!==currentSubjId); viewingChapterId=null; save(); navigate('subjects'); toast('🗑️','Deleted','Subject removed.'); }
+            });
+            $('#exportBtn').addEventListener('click', ()=>{
+                const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`loopers_backup_${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(url); toast('📤','Exported','Data downloaded.');
+            });
+            $('#importBtn').addEventListener('click', ()=>$('#importFile').click());
+            $('#importFile').addEventListener('change', function() {
+                const f=this.files[0]; if(!f) return; const reader=new FileReader();
+                reader.onload=function(ev) { try { const imp=JSON.parse(ev.target.result); if(imp.subjects && imp.settings) { data=imp; save(); viewingChapterId=null; refresh(); navigate('home'); toast('📥','Imported','Data restored.'); } else alert('Invalid file.'); } catch(e) { alert('Error: '+e.message); } };
+                reader.readAsText(f); this.value='';
+            });
+            $('#importTextBtn').addEventListener('click', ()=>$('#textImportModal').classList.add('open'));
+            $('#importTextSubmit').addEventListener('click', ()=>{
+                const raw=$('#jsonTextInput').value.trim(); if(!raw) return toast('⚠️','Empty','Please paste JSON data.');
+                try { const imp=JSON.parse(raw); if(imp.subjects && imp.settings) { data=imp; save(); viewingChapterId=null; refresh(); navigate('home'); $('#textImportModal').classList.remove('open'); $('#jsonTextInput').value=''; toast('📥','Imported','Data restored from text.'); } else alert('Invalid data structure.'); } catch(e) { alert('Invalid JSON: '+e.message); }
+            });
+            // Export JSON as text (copy to clipboard)
+            $('#exportTextBtn').addEventListener('click', async ()=>{
+                const jsonStr = JSON.stringify(data, null, 2);
+                try {
+                    await navigator.clipboard.writeText(jsonStr);
+                    toast('📋', 'Copied', 'JSON data copied to clipboard.');
+                } catch (err) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = jsonStr;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    toast('📋', 'Copied', 'JSON data copied (fallback).');
+                }
+            });
+            $('#resetBtn').addEventListener('click', ()=>{
+                if(confirm('⚠️ Reset ALL data?') && confirm('Are you sure?')) { data=defaultData(); save(); viewingChapterId=null; refresh(); navigate('home'); toast('🗑️','Reset','All data cleared.'); }
+            });
+            document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click', ()=>document.getElementById(el.dataset.close)?.classList.remove('open')));
+            document.querySelectorAll('.modal-overlay').forEach(el=>el.addEventListener('click', function(e) { if(e.target===this) this.classList.remove('open'); }));
+            document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(el=>el.classList.remove('open')); });
+            $('#subjectSearch')?.addEventListener('input', ()=>{ if(currentPage==='subjects') renderSubjects(); });
+            function init() { applySettings(); buildAccentDots(); navigate('home'); if(!data.subjects.length) setTimeout(()=>toast('👋','Welcome!','Create a subject or explore the sample data.'),600); }
             init();
         })();
     </script>
