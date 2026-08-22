@@ -1,216 +1,515 @@
-# Loopers – A Minimal Gamified Study Tracker
+# Awakening — Study Tracker
 
-**Loopers** is a clean, modern, and highly interactive study management web application designed to help you organize your learning journey. Instead of relying on XP, streaks, badges, or other traditional gamification systems, Loopers motivates you through beautiful visuals, smooth animations, and satisfying progress tracking.
+A premium, gamified study-tracking web application inspired by a **system/awakening interface**. It turns subjects into **Domains**, chapters into progression paths, and study milestones into levels.
 
-Everything runs entirely inside your browser using **HTML, CSS, and Vanilla JavaScript**, with all data stored locally via **LocalStorage**. No accounts, no servers, and no internet connection are required after opening the app.
-
----
-
-# ✨ Features
-
-## 📚 Subject Management
-
-* Create unlimited subjects.
-* Assign each subject:
-
-  * Custom emoji
-  * Subject name
-  * Theme color
-* Every subject has its own unique visual identity.
+The entire application runs in the browser and stores user data locally using `localStorage`.
 
 ---
 
-## 📖 Chapter Organization
+## ✦ Features
 
-* Add unlimited chapters inside every subject.
-* Each chapter automatically inherits the subject's roadmap.
-* Edit or remove chapters anytime.
+### ◈ Dashboard
+
+The Home page provides a quick overview of your study progress:
+
+* Current level
+* Overall completion percentage
+* Number of Domains
+* Number of Chapters
+* Current Quest
+* Recent activity
+* Study streak
+
+The **Current Quest** automatically points toward the most recently opened chapter so you can quickly resume where you left off.
 
 ---
 
-## 🛣️ Shared Roadmap System
+### ✦ Domains
 
-Each subject contains one customizable roadmap template.
+Subjects are represented as **Domains**.
 
-Example:
+Each Domain contains:
 
+* Custom symbol
+* Name
+* Chapters
+* Custom roadmap
+* Overall completion percentage
+* Visual progress bar
+
+Domains can be:
+
+* Created
+* Edited
+* Searched
+* Deleted
+
+Example Domains:
+
+```text
+Mathematics
+Physics
+Computer Science
+Chemistry
+Biology
 ```
-Notes → Concepts → Examples → Practice → Revision → Quiz
-```
-
-All chapters inside that subject use the same roadmap.
-
-If the roadmap template is edited, every chapter updates instantly without losing progress where possible.
 
 ---
 
-## ✅ Progress Tracking
+## ⬡ Chapter Progression
 
-Complete your study one level at a time.
+Every Domain contains Chapters.
 
-Each roadmap level has three possible states:
+Each Chapter follows its Domain's roadmap.
+
+The default roadmap is:
+
+```text
+Notes
+Concepts
+Examples
+Practice
+Revision
+Quiz
+```
+
+Each roadmap stage behaves like a progression level.
+
+A stage can be:
 
 * 🔒 Locked
-* 🟡 Active
-* 🟢 Completed
+* ▶ Active
+* ✓ Completed
 
-Clicking a level opens a modal where you can:
-
-* View the level
-* Mark it as complete
-
-Once completed:
-
-* Progress updates instantly
-* The next level unlocks automatically
-* Progress bars animate smoothly
-* Completion rings refresh in real time
-
-No page reload is ever required.
+Stages must generally be completed sequentially, creating a simple progression system.
 
 ---
 
-## 🎯 Duolingo-Inspired Roadmap
+## ✦ Roadmap System
 
-Loopers features a clean vertical roadmap inspired by modern learning apps.
+Every Domain can have its own custom roadmap.
 
-Features include:
+For example:
 
-* Circular progress nodes
-* Animated connector lines
-* Locked, active, and completed states
-* Smooth transitions
-* Interactive level modals
+```text
+Learn
+Understand
+Solve Examples
+Practice
+Advanced Problems
+Revision
+Test
+```
 
-The roadmap provides a clear visual representation of your learning progress.
+Roadmaps can be:
+
+* Edited
+* Extended
+* Reduced
+* Renamed
+* Reordered through editing
+
+When a roadmap changes, the existing chapters are synchronized with the new roadmap.
 
 ---
 
-## 🏠 Dashboard
+## ⬡ Player Status
 
-The Home page provides an overview of your entire study journey.
+The Statistics page provides a broader overview of progress.
 
-Includes:
+It displays:
 
-* Total subjects
-* Total chapters
+* Total Domains
+* Total Chapters
 * Completed levels
-* Overall completion percentage
-* Continue Studying shortcut
-* Recently studied chapters
-
-Everything updates automatically as you study.
-
----
-
-## 📊 Statistics
-
-Track your progress with beautiful interactive charts powered by Chart.js.
-
-Statistics include:
-
+* Remaining levels
 * Overall completion
-* Subject-wise progress
-* Chapter-wise progress
-* Daily activity (simulated)
-* Monthly activity (simulated)
-* Top performing subjects
+* Domain mastery
+* Completion overview
+* Top Domains
+* Player profile
+
+Two charts are generated using **Chart.js**:
+
+1. Domain Mastery
+2. Completed vs Remaining
 
 ---
 
-## ⚙️ Settings
+## ✦ Level System
 
-Customize and manage your data with ease.
+The application converts overall completion into a progression level.
 
-Features include:
+The current implementation uses completion percentage:
 
-* 🌙 Dark / Light mode
-* 📤 Export all data as JSON
-* 📥 Import previous backups
-* 🗑 Reset all data with confirmation
-
----
-
-## ⚡ Instant Updates
-
-Loopers behaves like a modern Single Page Application (SPA).
-
-Every action updates the interface immediately:
-
-* Create
-* Edit
-* Delete
-* Complete levels
-* Import data
-* Change settings
-
-No refresh is ever needed.
-
----
-
-# 🧩 Project Structure
-
-The project is intentionally lightweight and consists of only two files.
-
-```
-loopers/
-├── index.html      # Complete application (HTML, CSS & JavaScript)
-└── README.md       # Project documentation
+```text
+0–9%     → LV 1
+10–19%   → LV 2
+20–29%   → LV 3
+30–39%   → LV 4
+40–49%   → LV 5
+50–59%   → LV 6
+60–69%   → LV 7
+70–79%   → LV 8
+80–89%   → LV 9
+90–99%   → LV 10
+100%     → GOD
 ```
 
-All styles and functionality are embedded inside `index.html`, making the application easy to distribute, modify, and run without any build tools.
+When a new level is reached, the application displays a **Level Up** overlay.
+
+At 100% completion:
+
+```text
+ALL DOMAINS CLEARED
+GOD
+```
 
 ---
 
-# 🚀 Getting Started
+## 🔥 Streak System
 
-1. Download or clone this repository.
-2. Open `index.html` in any modern web browser.
-3. Start creating subjects and chapters.
-4. Your progress is automatically saved using LocalStorage.
+The tracker calculates a study streak based on the dates Chapters were opened.
 
-No installation, dependencies, or server setup required.
+The system checks:
+
+* Today
+* Yesterday
+* Previous consecutive days
+
+The current streak is displayed in the HUD using the 🔥 indicator.
 
 ---
 
-# 🛠 Technologies
+## 🦊 Player Profile
+
+The player can customize:
+
+* Name
+* Avatar
+
+Available avatars include:
+
+```text
+🦊 🐼 🦁 🐨 🐯
+🦄 🐲 👑 🌟 💎
+```
+
+The profile appears on the Statistics page and in the HUD.
+
+---
+
+## ✦ Recent Activity
+
+The application records the most recently opened Chapters.
+
+Recent activity is used for:
+
+* The Recent Activity section
+* Current Quest
+* Resume Quest functionality
+
+Selecting a recent Chapter opens its progression interface.
+
+---
+
+## ⚡ Visual Design
+
+The interface uses a dark **purple glassmorphism** aesthetic.
+
+### Design characteristics
+
+* Dark purple background
+* Translucent glass cards
+* Frosted-glass blur
+* Subtle borders
+* Soft purple glow
+* Minimal shadows
+* Cinzel headings
+* Cormorant Garamond body text
+* Smooth hover animations
+* Subtle grid background
+* Vertical chapter progression path
+
+### Typography
+
+The application loads:
+
+* **Cinzel** — headings and system-style UI
+* **Cormorant Garamond** — body text and controls
+
+---
+
+## 🧭 Navigation
+
+The sidebar contains four primary sections:
+
+```text
+◈ Home
+✦ Domains
+⬡ Status
+⚙ Settings
+```
+
+The sidebar expands when hovered on desktop.
+
+On smaller screens it remains compact.
+
+---
+
+## ⚙ Data Management
+
+All study data is stored locally in the browser.
+
+Storage key:
+
+```text
+loopers_data_v5
+```
+
+The application does not require a backend database.
+
+### Export
+
+Users can export their complete tracker data as a JSON file.
+
+### Import
+
+JSON backups can be restored from:
+
+* A JSON file
+* Pasted JSON text
+
+### Copy Backup
+
+The complete JSON state can also be copied directly to the clipboard.
+
+### Reset
+
+The Settings page provides a complete data reset option.
+
+---
+
+## 💾 Data Structure
+
+The application stores data approximately in the following structure:
+
+```text
+data
+├── profile
+│   ├── name
+│   └── emoji
+│
+├── subjects
+│   ├── id
+│   ├── name
+│   ├── symbol
+│   ├── roadmap
+│   ├── createdAt
+│   └── chapters
+│       ├── id
+│       ├── name
+│       ├── lastOpened
+│       └── levels
+│           ├── id
+│           ├── name
+│           └── completed
+│
+└── settings
+```
+
+---
+
+## 🛠 Technology
+
+The project is a client-side web application built with:
 
 * HTML5
 * CSS3
-* Vanilla JavaScript (ES6+)
+* Vanilla JavaScript
+* `localStorage`
 * Chart.js
-* LocalStorage API
+* Google Fonts
+
+External libraries are loaded through CDN links.
+
+### Chart.js
+
+Used for the Statistics page charts.
+
+### Google Fonts
+
+Used for the application's typography.
 
 ---
 
-# 🎨 Design Inspiration
+## 🚀 Running the Project
 
-Loopers draws inspiration from several beautifully designed applications, including:
+No build system is required.
 
-* Notion
-* Duolingo
-* Linear
-* Arc Browser
-* Apple Human Interface Guidelines
+Simply open the HTML file in a modern web browser.
 
-The goal is to provide a distraction-free experience with polished interactions and elegant visuals.
+```text
+index.html
+```
 
----
+The application should work directly in the browser.
 
-# 💾 Data Storage
+For the best experience, use a modern Chromium-based browser, Firefox, Safari, or another browser with support for:
 
-All application data is stored locally in your browser using the LocalStorage API.
-
-Your data never leaves your device unless you choose to export it as a JSON backup.
-
----
-
-# 📄 License
-
-This project is licensed under the **MIT License**.
-
-You are free to use, modify, and distribute it for personal or commercial purposes.
+* JavaScript
+* localStorage
+* CSS backdrop filters
+* Canvas
+* Clipboard API
 
 ---
 
-Built with ❤️ as a focused, distraction-free study companion for students, developers, and lifelong learners.
+## 📁 Project Structure
+
+The current version is designed as a single-file application:
+
+```text
+Awakening/
+└── index.html
+```
+
+The HTML file contains:
+
+```text
+HTML
+├── Application structure
+├── Modals
+└── Canvas
+
+CSS
+├── Theme
+├── Glass UI
+├── Layout
+├── Responsive styles
+└── Animations
+
+JavaScript
+├── Data management
+├── Navigation
+├── Domain CRUD
+├── Chapter CRUD
+├── Roadmap system
+├── Progress system
+├── Level system
+├── Streak system
+├── Statistics
+├── Charts
+├── Import/export
+└── UI interactions
+```
+
+---
+
+## 🔄 Application Flow
+
+The basic progression is:
+
+```text
+Create Domain
+      ↓
+Create Chapter
+      ↓
+Open Chapter
+      ↓
+Complete Roadmap Levels
+      ↓
+Chapter Progress Increases
+      ↓
+Domain Progress Increases
+      ↓
+Overall Completion Increases
+      ↓
+Player Level Increases
+      ↓
+100% → GOD
+```
+
+---
+
+## 🎮 Design Philosophy
+
+Awakening is designed around a simple principle:
+
+> **Turn studying into visible progression.**
+
+Instead of relying on complicated game mechanics, the application focuses on:
+
+* Clear progress
+* Sequential milestones
+* Visual feedback
+* Simple statistics
+* Custom study roadmaps
+* A motivating system-like interface
+
+The progression system intentionally avoids unnecessary complexity such as XP calculations.
+
+---
+
+## 📌 Current Limitations
+
+This version is entirely client-side.
+
+Therefore:
+
+* Data is stored only in the current browser.
+* There is no account system.
+* There is no cloud synchronization.
+* Data can be lost if browser storage is manually cleared.
+* Import/export should be used for backups.
+* Study time is not currently tracked.
+* There is no server-side authentication.
+* There is no multi-device synchronization.
+
+---
+
+## 🔮 Possible Future Improvements
+
+Potential future additions include:
+
+* Study timer
+* Daily objectives
+* Calendar-based study history
+* Better streak tracking
+* Detailed chapter notes
+* Tasks inside roadmap levels
+* Drag-and-drop roadmap ordering
+* More detailed analytics
+* Keyboard shortcuts
+* Mobile navigation improvements
+* Cloud synchronization
+* User accounts
+* PWA/offline support
+* More advanced progression mechanics
+* Custom themes
+
+---
+
+## 🔐 Privacy
+
+Awakening currently stores study information locally in the browser through `localStorage`.
+
+No personal study data is intentionally sent to a backend by the application itself.
+
+External resources such as Google Fonts and Chart.js are loaded from their respective CDNs.
+
+---
+
+## ✦ Philosophy
+
+**Awakening is not meant to make studying complicated.**
+
+The goal is to make progress tangible.
+
+Every Chapter is a path.
+
+Every roadmap step is a milestone.
+
+Every completed milestone moves the system forward.
+
+**Study → Progress → Mastery → Awakening.**
