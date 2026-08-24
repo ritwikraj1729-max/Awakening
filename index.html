@@ -51,6 +51,12 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html, body {
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            width: 100%;
+            max-width: 100%;
+        }
+
         body {
             font-family: var(--font-b);
             font-size: 1.15rem;
@@ -96,7 +102,7 @@
         .gap-sm { gap: 8px; }
         .text-muted { color: var(--text-muted); }
 
-        /* ── SIDEBAR ── */
+        /* ── SIDEBAR (Desktop) ── */
         .sidebar {
             position: fixed;
             left: 0; top: 0; bottom: 0;
@@ -110,15 +116,25 @@
             align-items: center;
             padding: 20px 10px;
             z-index: 100;
-            transition: width 0.3s ease;
+            transition: width 0.3s ease, top 0.3s ease, bottom 0.3s ease, left 0.3s ease, right 0.3s ease, flex-direction 0.3s ease;
             overflow: hidden;
             box-shadow: var(--glass-shadow);
         }
 
+        /* Overlay expansion instead of pushing content */
         .sidebar:hover {
             width: 220px;
             align-items: flex-start;
             padding: 20px 16px;
+            z-index: 101; /* Keep above content */
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); /* Add depth */
+        }
+
+        /* Remove content shift on hover */
+        .main-wrap { 
+            margin-left: 64px; 
+            min-height: 100vh; 
+            transition: margin-left 0.3s ease, margin-bottom 0.3s ease; 
         }
 
         .logo {
@@ -178,10 +194,6 @@
             box-shadow: inset 3px 0 0 var(--accent);
         }
 
-        /* ── MAIN CONTENT ── */
-        .main-wrap { margin-left: 64px; min-height: 100vh; transition: margin-left 0.3s ease; }
-        .sidebar:hover ~ .main-wrap { margin-left: 220px; }
-
         .main-content { padding: 30px 40px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 
         .page { display: none; animation: fadeSlide 0.35s ease; }
@@ -239,6 +251,8 @@
             padding: 24px;
             box-shadow: var(--glass-shadow);
             transition: var(--transition);
+            max-width: 100%; /* Ensure no overflow */
+            overflow: hidden; /* Contain children */
         }
 
         .card:hover {
@@ -353,6 +367,7 @@
             border-radius: var(--radius-sm);
             padding: 10px 16px;
             transition: var(--transition);
+            max-width: 100%;
         }
 
         .search-box:focus-within {
@@ -368,6 +383,7 @@
             color: var(--text-primary);
             font-size: 1rem;
             width: 200px;
+            max-width: 100%;
             font-family: var(--font-b);
         }
 
@@ -474,6 +490,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            max-width: 100%;
         }
 
         .chapter-node:hover {
@@ -529,6 +546,7 @@
 
         .node-content {
             flex: 1;
+            min-width: 0; /* Prevent overflow from long names */
         }
 
         .node-name {
@@ -536,6 +554,7 @@
             font-size: 1.15rem;
             color: var(--text-primary);
             margin-bottom: 4px;
+            overflow-wrap: break-word;
         }
 
         .node-progress {
@@ -610,6 +629,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            overflow-y: auto; /* Allow scrolling if needed */
         }
 
         .modal-overlay.open { display: flex; }
@@ -832,21 +852,244 @@
             inset: 0;
             pointer-events: none;
             z-index: 2000;
+            width: 100%;
+            height: 100%;
         }
 
-        /* ── RESPONSIVE ── */
+        /* ── RESPONSIVE (MOBILE & TABLET) ── */
         @media (max-width: 768px) {
-            .sidebar { width: 60px; }
-            .sidebar:hover { width: 60px; }
-            .main-wrap { margin-left: 60px; }
-            .main-content { padding: 20px; }
-            .stats-layout { grid-template-columns: 1fr; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .levels-grid { grid-template-columns: repeat(2, 1fr); }
-            .chapter-path { padding-left: 30px; }
-            .chapter-path::before { left: 14px; }
-            .chapter-node { padding: 16px; }
-            .node-status { width: 32px; height: 32px; font-size: 1.2rem; }
+            /* Convert sidebar to bottom navigation bar */
+            .sidebar {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 60px;
+                flex-direction: row;
+                align-items: center;
+                padding: 0 10px;
+                border-right: none;
+                border-top: 1px solid var(--glass-border);
+                background: rgba(20, 10, 35, 0.9);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+                overflow: visible;
+            }
+
+            /* Hide logo completely on mobile */
+            .logo {
+                display: none;
+            }
+
+            .sidebar nav {
+                flex-direction: row;
+                flex: 1;
+                gap: 5px;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            .sidebar nav button {
+                flex-direction: column;
+                gap: 4px;
+                padding: 6px 8px;
+                font-size: 0.7rem;
+                border-radius: 8px;
+                width: auto;
+                white-space: normal;
+                text-align: center;
+            }
+
+            .sidebar nav button .nav-icon {
+                font-size: 1.5rem;
+            }
+
+            .sidebar nav button .nav-text {
+                opacity: 1;
+                font-size: 0.7rem;
+                line-height: 1;
+            }
+
+            /* Remove hover expansion */
+            .sidebar:hover {
+                width: 100%;
+                align-items: center;
+                padding: 0 10px;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            }
+
+            /* Main content adjustments */
+            .main-wrap {
+                margin-left: 0;
+                margin-bottom: 60px; /* space for bottom nav */
+                transition: none;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 1.2rem;
+            }
+
+            /* HUD bar */
+            .hud-bar {
+                padding: 10px 15px;
+                margin-bottom: 16px;
+                flex-wrap: wrap;
+            }
+
+            .hud-items {
+                gap: 10px;
+            }
+
+            .hud-item {
+                font-size: 0.8rem;
+            }
+
+            .hud-lbl {
+                font-size: 0.7rem;
+            }
+
+            /* Stats overview */
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 15px 10px;
+            }
+
+            .stat-num {
+                font-size: 1.5rem;
+            }
+
+            /* Subject grid */
+            .subject-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .subject-card {
+                padding: 16px;
+            }
+
+            .s-symbol { font-size: 2rem; }
+
+            /* Chapter path */
+            .chapter-path {
+                padding-left: 30px;
+            }
+            .chapter-path::before {
+                left: 14px;
+            }
+            .chapter-node {
+                padding: 16px;
+                margin-bottom: 16px;
+                gap: 12px;
+            }
+            .node-status {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+            .node-name {
+                font-size: 1rem;
+            }
+
+            /* Levels grid */
+            .levels-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .level-circle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+            }
+
+            /* Stats layout */
+            .stats-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-panel {
+                position: static;
+                padding: 20px;
+            }
+
+            .combined-stats {
+                flex-direction: column;
+            }
+
+            .stat-group {
+                min-width: auto;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Modal adjustments */
+            .modal {
+                padding: 20px;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal-lg {
+                max-width: 95%;
+            }
+
+            .modal-hdr h2 {
+                font-size: 1.1rem;
+            }
+
+            .modal-actions {
+                flex-wrap: wrap;
+            }
+
+            /* Search box */
+            .search-box input {
+                width: 150px;
+                max-width: 100%;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            /* Settings rows */
+            .setting-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .setting-row .btn {
+                align-self: flex-end;
+            }
+
+            /* Toast */
+            .toast {
+                bottom: 80px; /* above bottom nav */
+                right: 15px;
+                left: 15px;
+                text-align: center;
+                border-radius: var(--radius-sm);
+                padding: 12px 16px;
+            }
         }
     </style>
 </head>
