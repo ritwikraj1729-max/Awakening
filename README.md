@@ -1,515 +1,341 @@
-# Awakening — Study Tracker
+# ◈ Loopers — Study Tracker
 
-A premium, gamified study-tracking web application inspired by a **system/awakening interface**. It turns subjects into **Domains**, chapters into progression paths, and study milestones into levels.
-
-The entire application runs in the browser and stores user data locally using `localStorage`.
+**Loopers** is a minimal, Notion-inspired study tracker built with vanilla HTML, CSS, and JavaScript. It helps you organize subjects into chapters, track progress through customizable learning roadmaps, and maintain daily streaks — all stored locally in your browser.
 
 ---
 
-## ✦ Features
+## ✨ Features
 
-### ◈ Dashboard
+### 🗂 Subject Management
+- Create, edit, and delete subjects
+- Assign custom symbols (emojis) and color themes
+- 5 built-in color themes: **Blue, Green, Violet, Amber, Coral**
 
-The Home page provides a quick overview of your study progress:
+### 📚 Chapter & Roadmap System
+- Add chapters to any subject
+- Define a **roadmap** (learning steps) per subject — e.g., *Notes → Concepts → Examples → Practice → Revision → Quiz*
+- Every chapter follows the subject's roadmap with GitHub-style toggle squares
+- Inline rename chapters directly in the table
+- **Drag-and-drop** chapter reordering
 
-* Current level
-* Overall completion percentage
-* Number of Domains
-* Number of Chapters
-* Current Quest
-* Recent activity
-* Study streak
+### 📊 Statistics Dashboard
+- Overall completion percentage
+- Subject-wise mastery doughnut chart
+- Completed vs. remaining levels bar chart
+- Top subjects ranking with progress bars
+- Day streak counter based on chapter activity
 
-The **Current Quest** automatically points toward the most recently opened chapter so you can quickly resume where you left off.
+### 🏠 Home Dashboard
+- Quick stats: completion %, subjects, chapters, streak
+- **Current Quest** — your most recently opened chapter
+- Recent activity feed with one-click resume
+
+### 👤 Profile System
+- Custom display name and avatar emoji
+- XP-style completion bar
+- 10+ avatar options to choose from
+
+### 💾 Data & Settings
+- **Auto-save** to `localStorage`
+- **Export** as JSON file
+- **Import** from JSON file or pasted text
+- **Copy backup** to clipboard
+- **One-click reset** with confirmation
 
 ---
 
-### ✦ Domains
+## 🚀 Getting Started
 
-Subjects are represented as **Domains**.
+### Option 1: Direct Use
+Open `index.html` in any modern browser. Sample data is auto-seeded on first run so you can explore immediately.
 
-Each Domain contains:
+### Option 2: Local Server (Optional)
+```bash
+# Using Python
+python -m http.server 8000
 
-* Custom symbol
-* Name
-* Chapters
-* Custom roadmap
-* Overall completion percentage
-* Visual progress bar
+# Using Node.js
+npx serve .
+```
+Then visit `http://localhost:8000`.
 
-Domains can be:
+> No build tools, dependencies, or installation required — just HTML, CSS, and JS.
 
-* Created
-* Edited
-* Searched
-* Deleted
+---
 
-Example Domains:
+## 🎯 How to Use
 
-```text
-Mathematics
-Physics
-Computer Science
-Chemistry
-Biology
+### Creating Your First Subject
+1. Navigate to **Subjects** in the sidebar
+2. Click **+ New**
+3. Choose a **symbol** (e.g., `◈` for math, `✦` for physics)
+4. Enter a **name**
+5. Pick a **color theme**
+6. Customize the **roadmap** (one step per line)
+7. Click **Create**
+
+### Adding Chapters
+1. Open a subject from the Subjects grid
+2. Click **+ Chapter**
+3. Enter a chapter name (e.g., "Algebra", "Mechanics")
+4. The chapter automatically gets a row with toggle squares for each roadmap step
+
+### Tracking Progress
+- **Click any square** in the chapter table to toggle completion
+- The chapter progress bar updates in real time
+- Subject completion % and stats refresh instantly
+
+### Reordering Chapters
+- **Grab the `⋮⋮` handle** on any chapter row
+- **Drag** it to a new position
+- Release to save the new order
+
+### Renaming Chapters
+- **Click on a chapter name** in the table
+- Type the new name
+- Press `Enter` to save or `Esc` to cancel
+
+### Editing Roadmaps
+1. Open a subject
+2. Click **Roadmap**
+3. Add, remove, or reorder steps
+4. Click **Save** — existing chapters are automatically synced to the new roadmap
+
+### Using Statistics
+- View **overall completion** and **subject mastery**
+- Check **top subjects** by completion %
+- Track your **daily streak** on the home dashboard
+
+### Backing Up Data
+- Go to **Settings**
+- Click **Export** to download a JSON file
+- Or click **Copy Text** to copy JSON to clipboard
+- Restore via **Import** (file) or **Import Text** (paste JSON)
+
+---
+
+## 📁 Data Structure
+
+All data is stored in `localStorage` under the key `loopers_data_v5`. The shape looks like:
+
+```json
+{
+  "profile": {
+    "name": "Player",
+    "emoji": "🦊"
+  },
+  "subjects": [
+    {
+      "id": "s1",
+      "name": "Mathematics",
+      "symbol": "◈",
+      "color": "violet",
+      "roadmap": ["Notes", "Concepts", "Examples", "Practice", "Revision", "Quiz"],
+      "chapters": [
+        {
+          "id": "c1a",
+          "name": "Algebra",
+          "levels": [
+            { "id": "l1a0", "name": "Notes", "completed": true },
+            { "id": "l1a1", "name": "Concepts", "completed": false }
+          ],
+          "lastOpened": 1738560000000
+        }
+      ],
+      "createdAt": 1738560000000
+    }
+  ],
+  "settings": {}
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subjects[].roadmap` | `string[]` | Learning steps shared across all chapters |
+| `chapters[].levels` | `object[]` | One entry per roadmap step with completion state |
+| `chapters[].lastOpened` | `number` | Unix timestamp for streak/recent tracking |
+
+---
+
+## 🎨 Color Themes
+
+| Theme | Hex | Best For |
+|-------|-----|----------|
+| 🔵 Blue | `#3b82f6` | Sciences, Physics |
+| 🟢 Green | `#22c55e` | CS, Biology |
+| 🟣 Violet | `#8b5cf6` | Math, Logic |
+| 🟠 Amber | `#f59e0b` | Languages, Humanities |
+| 🔴 Coral | `#ff6b6b` | Literature, Arts |
+
+---
+
+## 📈 Roadmap Workflow
+
+The roadmap system is designed around a **mastery loop**:
+
+```
+Notes → Concepts → Examples → Practice → Revision → Quiz
+```
+
+- **Notes** — Gather raw material
+- **Concepts** — Understand core ideas
+- **Examples** — Work through worked solutions
+- **Practice** — Solve problems independently
+- **Revision** — Review and consolidate
+- **Quiz** — Test yourself
+
+You can customize this to fit any subject. Common alternatives:
+
+- **Language**: `Vocabulary → Grammar → Reading → Listening → Speaking → Writing`
+- **History**: `Timeline → Key Events → Analysis → Sources → Essay → Review`
+- **Programming**: `Tutorial → Setup → Core Syntax → Projects → Debugging → Review`
+
+---
+
+## 🧮 Streak Calculation
+
+The streak counts **consecutive days** where at least one chapter was opened or updated. The logic:
+
+1. Collect all `lastOpened` timestamps from every chapter
+2. Normalize to local midnight
+3. Check if today or yesterday has activity
+4. Count backward from the most recent active day
+
+> Opening a subject or toggling a completion square updates `lastOpened`.
+
+---
+
+## 💡 Tips & Best Practices
+
+### For Students
+- **Keep roadmaps short** (4–7 steps) for manageable tracking
+- **Update streaks daily** — even a 30-second review counts
+- **Use symbols** that are visually distinct (`◈` vs `✦` vs `◆`)
+
+### For Power Users
+- **Export regularly** — data is local-only
+- **Import JSON text** to sync across browsers/devices
+- **Custom roadmaps** work great for non-academic tracking (fitness, habits, projects)
+
+### Performance Notes
+- Designed to handle **hundreds of subjects and chapters** smoothly
+- Chart.js is loaded from CDN (requires internet for statistics page)
+
+---
+
+## 🧩 Tech Stack
+
+| Technology | Role |
+|-----------|------|
+| HTML5 | Structure |
+| CSS3 (custom properties) | Notion-style dark theme |
+| Vanilla JavaScript | Logic, state management, localStorage |
+| Chart.js 4.4.0 (CDN) | Statistics visualizations |
+
+No frameworks, no build tools, no server required.
+
+---
+
+## 📦 Project Structure
+
+```
+loopers/
+├── index.html          # Single-file application
+│   ├── CSS (embedded)  # Notion dark theme
+│   └── JS (embedded)   # Full app logic
+└── README.md           # This file
 ```
 
 ---
 
-## ⬡ Chapter Progression
+## 🔧 Customization
 
-Every Domain contains Chapters.
+### Adding New Color Themes
+In the `<script>` section, find the `THEMES` object:
 
-Each Chapter follows its Domain's roadmap.
-
-The default roadmap is:
-
-```text
-Notes
-Concepts
-Examples
-Practice
-Revision
-Quiz
+```js
+const THEMES = {
+    blue:   { label: 'Blue',   hex: '#3b82f6' },
+    green:  { label: 'Green',  hex: '#22c55e' },
+    violet: { label: 'Violet', hex: '#8b5cf6' },
+    amber:  { label: 'Amber',  hex: '#f59e0b' },
+    coral:  { label: 'Coral',  hex: '#ff6b6b' }
+};
 ```
 
-Each roadmap stage behaves like a progression level.
+Add a new entry with a unique id, label, and hex code. The theme will automatically appear in the color picker and apply throughout the UI.
 
-A stage can be:
+### Changing Default Roadmap
+Find `DEFAULT_ROADMAP`:
 
-* 🔒 Locked
-* ▶ Active
-* ✓ Completed
-
-Stages must generally be completed sequentially, creating a simple progression system.
-
----
-
-## ✦ Roadmap System
-
-Every Domain can have its own custom roadmap.
-
-For example:
-
-```text
-Learn
-Understand
-Solve Examples
-Practice
-Advanced Problems
-Revision
-Test
+```js
+const DEFAULT_ROADMAP = ['Notes', 'Concepts', 'Examples', 'Practice', 'Revision', 'Quiz'];
 ```
 
-Roadmaps can be:
-
-* Edited
-* Extended
-* Reduced
-* Renamed
-* Reordered through editing
-
-When a roadmap changes, the existing chapters are synchronized with the new roadmap.
+Modify the array to change the default for new subjects.
 
 ---
 
-## ⬡ Player Status
+## ❓ FAQ
 
-The Statistics page provides a broader overview of progress.
+### Where is my data stored?
+In your browser's `localStorage`. Clearing browser data will erase it — **export regularly**.
 
-It displays:
+### Can I sync across devices?
+Not natively. Use **Export → Import Text** to manually transfer data between devices.
 
-* Total Domains
-* Total Chapters
-* Completed levels
-* Remaining levels
-* Overall completion
-* Domain mastery
-* Completion overview
-* Top Domains
-* Player profile
+### What happens when I edit a roadmap?
+Existing chapters are synced automatically. Levels that match by index keep their completion state; new steps are added as incomplete.
 
-Two charts are generated using **Chart.js**:
+### Does it work offline?
+Yes, except the **Statistics** page charts (Chart.js loads from CDN). Everything else works fully offline.
 
-1. Domain Mastery
-2. Completed vs Remaining
+### How do I reset my streak?
+There's no manual streak reset. The streak naturally resets if you go a full day without activity.
 
 ---
 
-## ✦ Level System
+## 🐛 Known Limitations
 
-The application converts overall completion into a progression level.
+- Data is **local-only** — no cloud sync
+- No undo for chapter deletion (subject deletion has confirmation)
+- Statistics charts require internet for CDN
+- Mobile experience is functional but optimized for desktop
 
-The current implementation uses completion percentage:
+---
 
-```text
-0–9%     → LV 1
-10–19%   → LV 2
-20–29%   → LV 3
-30–39%   → LV 4
-40–49%   → LV 5
-50–59%   → LV 6
-60–69%   → LV 7
-70–79%   → LV 8
-80–89%   → LV 9
-90–99%   → LV 10
-100%     → GOD
+## 📄 License
+
+MIT — free to use, modify, and distribute.
+
+---
+
+## 🙏 Acknowledgements
+
+- **Notion** — UI/UX inspiration
+- **Chart.js** — Charts on the Statistics page
+- **GitHub** — Contribution-square interaction pattern
+
+---
+
+**Happy learning!** ◈
 ```
 
-When a new level is reached, the application displays a **Level Up** overlay.
-
-At 100% completion:
-
-```text
-ALL DOMAINS CLEARED
-GOD
-```
-
----
-
-## 🔥 Streak System
-
-The tracker calculates a study streak based on the dates Chapters were opened.
-
-The system checks:
-
-* Today
-* Yesterday
-* Previous consecutive days
-
-The current streak is displayed in the HUD using the 🔥 indicator.
-
----
-
-## 🦊 Player Profile
-
-The player can customize:
-
-* Name
-* Avatar
-
-Available avatars include:
-
-```text
-🦊 🐼 🦁 🐨 🐯
-🦄 🐲 👑 🌟 💎
-```
-
-The profile appears on the Statistics page and in the HUD.
-
----
-
-## ✦ Recent Activity
-
-The application records the most recently opened Chapters.
-
-Recent activity is used for:
-
-* The Recent Activity section
-* Current Quest
-* Resume Quest functionality
-
-Selecting a recent Chapter opens its progression interface.
-
----
-
-## ⚡ Visual Design
-
-The interface uses a dark **purple glassmorphism** aesthetic.
-
-### Design characteristics
-
-* Dark purple background
-* Translucent glass cards
-* Frosted-glass blur
-* Subtle borders
-* Soft purple glow
-* Minimal shadows
-* Cinzel headings
-* Cormorant Garamond body text
-* Smooth hover animations
-* Subtle grid background
-* Vertical chapter progression path
-
-### Typography
-
-The application loads:
-
-* **Cinzel** — headings and system-style UI
-* **Cormorant Garamond** — body text and controls
-
----
-
-## 🧭 Navigation
-
-The sidebar contains four primary sections:
-
-```text
-◈ Home
-✦ Domains
-⬡ Status
-⚙ Settings
-```
-
-The sidebar expands when hovered on desktop.
-
-On smaller screens it remains compact.
-
----
-
-## ⚙ Data Management
-
-All study data is stored locally in the browser.
-
-Storage key:
-
-```text
-loopers_data_v5
-```
-
-The application does not require a backend database.
-
-### Export
-
-Users can export their complete tracker data as a JSON file.
-
-### Import
-
-JSON backups can be restored from:
-
-* A JSON file
-* Pasted JSON text
-
-### Copy Backup
-
-The complete JSON state can also be copied directly to the clipboard.
-
-### Reset
-
-The Settings page provides a complete data reset option.
-
----
-
-## 💾 Data Structure
-
-The application stores data approximately in the following structure:
-
-```text
-data
-├── profile
-│   ├── name
-│   └── emoji
-│
-├── subjects
-│   ├── id
-│   ├── name
-│   ├── symbol
-│   ├── roadmap
-│   ├── createdAt
-│   └── chapters
-│       ├── id
-│       ├── name
-│       ├── lastOpened
-│       └── levels
-│           ├── id
-│           ├── name
-│           └── completed
-│
-└── settings
-```
-
----
-
-## 🛠 Technology
-
-The project is a client-side web application built with:
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* `localStorage`
-* Chart.js
-* Google Fonts
-
-External libraries are loaded through CDN links.
-
-### Chart.js
-
-Used for the Statistics page charts.
-
-### Google Fonts
-
-Used for the application's typography.
-
----
-
-## 🚀 Running the Project
-
-No build system is required.
-
-Simply open the HTML file in a modern web browser.
-
-```text
-index.html
-```
-
-The application should work directly in the browser.
-
-For the best experience, use a modern Chromium-based browser, Firefox, Safari, or another browser with support for:
-
-* JavaScript
-* localStorage
-* CSS backdrop filters
-* Canvas
-* Clipboard API
-
----
-
-## 📁 Project Structure
-
-The current version is designed as a single-file application:
-
-```text
-Awakening/
-└── index.html
-```
-
-The HTML file contains:
-
-```text
-HTML
-├── Application structure
-├── Modals
-└── Canvas
-
-CSS
-├── Theme
-├── Glass UI
-├── Layout
-├── Responsive styles
-└── Animations
-
-JavaScript
-├── Data management
-├── Navigation
-├── Domain CRUD
-├── Chapter CRUD
-├── Roadmap system
-├── Progress system
-├── Level system
-├── Streak system
-├── Statistics
-├── Charts
-├── Import/export
-└── UI interactions
-```
-
----
-
-## 🔄 Application Flow
-
-The basic progression is:
-
-```text
-Create Domain
-      ↓
-Create Chapter
-      ↓
-Open Chapter
-      ↓
-Complete Roadmap Levels
-      ↓
-Chapter Progress Increases
-      ↓
-Domain Progress Increases
-      ↓
-Overall Completion Increases
-      ↓
-Player Level Increases
-      ↓
-100% → GOD
-```
-
----
-
-## 🎮 Design Philosophy
-
-Awakening is designed around a simple principle:
-
-> **Turn studying into visible progression.**
-
-Instead of relying on complicated game mechanics, the application focuses on:
-
-* Clear progress
-* Sequential milestones
-* Visual feedback
-* Simple statistics
-* Custom study roadmaps
-* A motivating system-like interface
-
-The progression system intentionally avoids unnecessary complexity such as XP calculations.
-
----
-
-## 📌 Current Limitations
-
-This version is entirely client-side.
-
-Therefore:
-
-* Data is stored only in the current browser.
-* There is no account system.
-* There is no cloud synchronization.
-* Data can be lost if browser storage is manually cleared.
-* Import/export should be used for backups.
-* Study time is not currently tracked.
-* There is no server-side authentication.
-* There is no multi-device synchronization.
-
----
-
-## 🔮 Possible Future Improvements
-
-Potential future additions include:
-
-* Study timer
-* Daily objectives
-* Calendar-based study history
-* Better streak tracking
-* Detailed chapter notes
-* Tasks inside roadmap levels
-* Drag-and-drop roadmap ordering
-* More detailed analytics
-* Keyboard shortcuts
-* Mobile navigation improvements
-* Cloud synchronization
-* User accounts
-* PWA/offline support
-* More advanced progression mechanics
-* Custom themes
-
----
-
-## 🔐 Privacy
-
-Awakening currently stores study information locally in the browser through `localStorage`.
-
-No personal study data is intentionally sent to a backend by the application itself.
-
-External resources such as Google Fonts and Chart.js are loaded from their respective CDNs.
-
----
-
-## ✦ Philosophy
-
-**Awakening is not meant to make studying complicated.**
-
-The goal is to make progress tangible.
-
-Every Chapter is a path.
-
-Every roadmap step is a milestone.
-
-Every completed milestone moves the system forward.
-
-**Study → Progress → Mastery → Awakening.**
+This README covers:
+
+| Section | Purpose |
+|---------|---------|
+| **Overview & Features** | What the app does at a glance |
+| **Getting Started** | Zero-setup instructions |
+| **How to Use** | Step-by-step workflows for every feature |
+| **Data Structure** | JSON schema with field descriptions |
+| **Color Themes** | Visual reference table |
+| **Roadmap Workflow** | The pedagogical model behind the tracker |
+| **Streak Calculation** | How the algorithm works |
+| **Tips & Best Practices** | Power user guidance |
+| **Tech Stack** | What it's built with |
+| **Customization** | How to extend the app |
+| **FAQ** | Common questions answered |
+| **Known Limitations** | Honest caveats |
+
+The README assumes the reader has just received this single-file app and wants to start using it productively — whether they're a student tracking coursework, a developer studying for interviews, or anyone running a self-paced learning program.
